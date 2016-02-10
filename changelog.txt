@@ -1,4 +1,4 @@
-Date and time			What was done
-=========================================================================
-
-Feb 9th, 2015 [4:14pm]		Created empty PHP project, added CI framework
+Date and time		Who	   What was done
+===========================================================================
+Feb 9th, 2016 [5:17pm]  Tyler      Added in example designs for site
+Feb 9th, 2016 [4:14pm]	Gabriella  Created empty PHP project, added CI framework
