@@ -1,0 +1,4 @@
+Date and time			What was done
+=========================================================================
+
+Feb 9th, 2015 [4:14pm]		Created empty PHP project, added CI framework
