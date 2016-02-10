@@ -1,4 +1,6 @@
-comp4711assignment1
+###################
+COMP4711ASSIGNMENT1
+###################
 
 ******************
 CODING CONVENTIONS
@@ -25,10 +27,6 @@ PROJECT FOLDERS
 /application      the obvious
 /assets           CSS, javascript & media
 /data             some pictures to use
-
-
-If you change the system folder configuration setting, your webapp will break
-when I try to test it on my system!
 
 *******
 LICENSE
