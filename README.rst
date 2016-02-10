@@ -1,8 +1,10 @@
+comp4711assignment1
+
 ******************
 CODING CONVENTIONS
 ******************
 
-Allman - Aman convention!
+Allman - Aman convention! (braces on new lines always)
 
 Changelog: Newest at top, date and time goes first (Feb 9th, 2015 [4:14pm]) and what was done.
 
