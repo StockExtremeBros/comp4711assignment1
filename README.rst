@@ -20,6 +20,24 @@ Tyler Trepanier - Team member
 
 Micah Willems - Team member
 
+**************
+WORK BREAKDOWN
+**************
+
+Database - Tyler
+
+Player stats - Gabriella
+
+Stock stats - Micah
+
+Dependencies - Gabriella
+
+Header (Navbar and title) - Tyler
+
+Footer - Tyler
+
+Game Logic - Micah
+
 ***************
 PROJECT FOLDERS
 ***************
