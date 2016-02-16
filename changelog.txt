@@ -1,5 +1,6 @@
 Date and time		Who	   What was done
 ===========================================================================
+Feb 16th, 2016 [2:07pm] Tyler      Added in the generic footer element
 Feb 15th, 2016 [5:25pm] Tyler      Initial controller setup for CodeIgniter.
 Feb 9th, 2016 [5:17pm]  Tyler      Added in example designs for site
 Feb 9th, 2016 [4:14pm]	Gabriella  Created empty PHP project, added CI framework
