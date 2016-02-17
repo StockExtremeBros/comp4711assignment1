@@ -25,6 +25,8 @@ class Welcome extends Application {
             * $players = $this->players->all(); // Grab all players
             * $players[0]['Player']; //Grabs the first index's player's name
             */
+            $this->data['pagebody'] =  'test';
             $this->render();
 	}
+        
 }
