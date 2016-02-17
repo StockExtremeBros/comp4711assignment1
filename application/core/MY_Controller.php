@@ -21,7 +21,7 @@ class Application extends CI_Controller {
     {
 	parent::__construct();
 	$this->data = array();
-	$this->data['pagetitle'] = 'Sample Image Gallery';
+	$this->data['pagetitle'] = 'StockExtremeBros';
         $this->load->library('parser');
     }
 
@@ -30,14 +30,14 @@ class Application extends CI_Controller {
      */
     function render()
     {
-	$this->data['menubar'] = build_menu_bar($this->choices);
+	//$this->data['menubar'] = build_menu_bar($this->choices);
 	$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-	$this->data['data'] = &$this->data;
+	$this->data['footer'] = $this->load->view('_footer', $this->data, true);
+        $this->data['data'] = &$this->data;
         
         //$this->data['dependencies'] //conains all css, js scripts, resources, imgs, etc.
         //$this->data['header'] //this contains the navbar and title of the page.
         //$this->data['content'] // content of the page, depends on page
-        //#this->data['footer'] // copyright info
 	$this->parser->parse('_template', $this->data);
     }
 
