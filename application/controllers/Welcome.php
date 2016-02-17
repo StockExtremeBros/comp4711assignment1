@@ -21,7 +21,10 @@ class Welcome extends Application {
 	public function index()
 	{
             //$this->load->view('test');
-            $this->data['pagebody'] = 'test';
+          /** //This grabs all the players and their info
+            * $players = $this->players->all(); // Grab all players
+            * $players[0]['Player']; //Grabs the first index's player's name
+            */
             $this->render();
 	}
 }

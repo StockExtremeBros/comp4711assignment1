@@ -11,6 +11,7 @@
             <div class="alone"></div>
             <div id="content">
                 {content}
+                {test}hello
             </div>
             <div id="footer" class="span12">
                 {footer}

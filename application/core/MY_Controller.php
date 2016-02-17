@@ -32,10 +32,9 @@ class Application extends CI_Controller {
      */
     function render()
     {
-	//$this->data['menubar'] = build_menu_bar($this->choices);
 	$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
 	$this->data['footer'] = $this->load->view('_footer', $this->data, true);
-        
+   
         $navbar =  $this->parser->parse('_navbar', $this->data, true);
         
         $this->data['header'] = $navbar;
