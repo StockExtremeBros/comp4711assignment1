@@ -1,5 +1,6 @@
 Date and time		Who	   What was done
 ===========================================================================
+Feb 16th, 2016 [7:35pm] Tyler      Added in Header/Footer/Navbar
 Feb 16th, 2016 [2:07pm] Tyler      Added in the generic footer element
 Feb 15th, 2016 [5:25pm] Tyler      Initial controller setup for CodeIgniter.
 Feb 9th, 2016 [5:17pm]  Tyler      Added in example designs for site
