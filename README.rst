@@ -34,7 +34,7 @@ Dependencies - Gabriella
 
 Header (Navbar and title) - Tyler
 
-Footer - Tyler
+Footer - Tyler (done)
 
 Game Logic - Micah
 

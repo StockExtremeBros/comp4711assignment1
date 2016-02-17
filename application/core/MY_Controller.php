@@ -10,9 +10,11 @@ class Application extends CI_Controller {
     protected $data = array();      // parameters for view components
     protected $id;		  // identifier for our content
     protected $choices = array(// our menu navbar
-	'Home' => '/', 'Gallery' => '/gallery', 'About' => '/about'
+	'Home' => '/', 
+        'Stock History' => '/stock', 
+        'Profile' => '/profile'
     );
-
+    
     /**
      * Constructor.
      * Establish view parameters & load common helpers
@@ -33,12 +35,26 @@ class Application extends CI_Controller {
 	//$this->data['menubar'] = build_menu_bar($this->choices);
 	$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
 	$this->data['footer'] = $this->load->view('_footer', $this->data, true);
+        
+        $navbar =  $this->parser->parse('_navbar', $this->data, true);
+        
+        $this->data['header'] = $navbar;
         $this->data['data'] = &$this->data;
         
         //$this->data['dependencies'] //conains all css, js scripts, resources, imgs, etc.
         //$this->data['header'] //this contains the navbar and title of the page.
         //$this->data['content'] // content of the page, depends on page
 	$this->parser->parse('_template', $this->data);
+    }
+    
+    function create_navbar()
+    {   
+        $rows = array();
+        foreach ($this->choices as $navitem)
+            $rows[] = (array) $navitem;
+        $parms['records'] = $rows;
+        $this->data['navitems'] = $this->parser->parse('_navbar',$parms, true);
+        
     }
 
 }
