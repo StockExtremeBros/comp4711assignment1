@@ -32,9 +32,9 @@ Stock stats - Micah
 
 Dependencies - Gabriella
 
-Header (Navbar and title) - Tyler
+Header (Navbar and title) - Tyler (done?)
 
-Footer - Tyler
+Footer - Tyler (done)
 
 Game Logic - Micah
 
