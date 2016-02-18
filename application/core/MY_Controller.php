@@ -36,7 +36,12 @@ class Application extends CI_Controller {
 	$this->data['footer'] = $this->load->view('_footer', $this->data, true);
         $this->data['dependencies'] = $this->parser->parse('_dependencies', $this->data, true);
         
-        $navbar =  $this->parser->parse('_navbar', $this->data, true);
+        // Check if the user is logged in via the php session
+        if (array_key_exists('current_user', $_SESSION)) {
+            $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
+        } else {
+            $navbar =  $this->parser->parse('_navbar_loggedout', $this->data, true);
+        }
         
         $this->data['header'] = $navbar;
         $this->data['data'] = &$this->data;

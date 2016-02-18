@@ -8,7 +8,7 @@
       <li><a href="#">Stock History</a></li>
       <li><a href="#">Portfolio</a></li>
     </ul>
-    <form class="navbar-form navbar-right" role="forms/login" action="login" method="post">
+    <form class="navbar-form navbar-right ajax-form" role="forms" action="index.php/forms/login" method="post">
         <div class="form-group">
             <input type="text" class="form-control" name="username" placeholder="Username">
         </div>
