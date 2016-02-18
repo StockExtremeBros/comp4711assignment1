@@ -8,10 +8,9 @@
       <li><a href="#">Stock History</a></li>
       <li><a href="#">Portfolio</a></li>
     </ul>
-    <div class="form-group">
-        <div class = "username"><input type="text" class="form-control" placeholder="Username"> </div>
-        <div class = "password"><input type="text" class="form-control" placeholder="Password"> </div>
-        <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
+    <form class="navbar-form navbar-right ajax-form" role="forms" action="index.php/forms/logout" method="post">
+        <label class="text-muted">User: <?php echo $_SESSION['current_user']?>&nbsp;&nbsp;&nbsp;</label>
+        <button type="submit" class="btn btn-default" id="logout-btn">Sign out</button>
+    </form>
   </div>
 </nav>
