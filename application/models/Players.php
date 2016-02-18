@@ -29,4 +29,11 @@ class Players extends CI_Model{
                     return $record;
             return null;
     }
+    
+    function getPlayerNames()
+    {
+        //$this->db->order_by("id", "desc");
+        $query = $this->db->query('SELECT player FROM players');
+        return $query->result();
+    }
 }
