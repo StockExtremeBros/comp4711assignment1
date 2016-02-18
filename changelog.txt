@@ -1,7 +1,12 @@
-Date and time		Who	   What was done
-===========================================================================
-Feb 16th, 2016 [7:35pm] Tyler      Added in Header/Footer/Navbar
-Feb 16th, 2016 [2:07pm] Tyler      Added in the generic footer element
-Feb 15th, 2016 [5:25pm] Tyler      Initial controller setup for CodeIgniter.
-Feb 9th, 2016 [5:17pm]  Tyler      Added in example designs for site
-Feb 9th, 2016 [4:14pm]	Gabriella  Created empty PHP project, added CI framework
+Date and time           Who         What was done
+===================================================================================================
+Feb 18th, 2016 [6:16am] Micah       Form handling for login, initial homepage setup, session data &
+                                    full mock logging in functionality
+Feb 18th, 2016 [2:45am] Micah       Initial form handling tests
+Feb 18th, 2016 [2:30am] Micah       Adjusted task list for myself, beautified navbar
+Feb 18th, 2016 [1:40am] Micah       Quick fixes to make site bootstrap-compliant
+Feb 16th, 2016 [7:35pm] Tyler       Added in Header/Footer/Navbar
+Feb 16th, 2016 [2:07pm] Tyler       Added in the generic footer element
+Feb 15th, 2016 [5:25pm] Tyler       Initial controller setup for CodeIgniter.
+Feb 9th, 2016 [5:17pm]  Tyler       Added in example designs for site
+Feb 9th, 2016 [4:14pm]	Gabriella   Created empty PHP project, added CI framework
