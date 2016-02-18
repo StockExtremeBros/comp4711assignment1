@@ -29,4 +29,15 @@ class Players extends CI_Model{
                     return $record;
             return null;
     }
+    
+    function isPlayer($player)
+    {
+        $this->db->order_by("id", "desc");
+        $query = $this->db->get('players');
+        
+        foreach ($query as $record)
+            if ($record['Player'] == $player)
+                    return true;
+            return false;
+    }
 }
