@@ -34,7 +34,8 @@ class Application extends CI_Controller {
     {
 	$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
 	$this->data['footer'] = $this->load->view('_footer', $this->data, true);
-   
+        $this->data['dependencies'] = $this->parser->parse('_dependencies', $this->data, true);
+        
         $navbar =  $this->parser->parse('_navbar', $this->data, true);
         
         $this->data['header'] = $navbar;
