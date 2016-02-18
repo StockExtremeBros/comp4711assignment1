@@ -10,7 +10,7 @@
     </ul>
     <div class="form-group">
         <div class = "username"><input type="text" class="form-control" placeholder="Username"> </div>
-        <div class = "password"><input type="text" class="form-control" placeholder="Password"> </div>
+        <div class = "password"><input type="password" class="form-control" placeholder="Password"> </div>
         <button type="submit" class="btn btn-default">Sign in</button>
     </div>
   </div>
