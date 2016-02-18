@@ -8,10 +8,14 @@
       <li><a href="#">Stock History</a></li>
       <li><a href="#">Portfolio</a></li>
     </ul>
-    <div class="form-group">
-        <div class = "username"><input type="text" class="form-control" placeholder="Username"> </div>
-        <div class = "password"><input type="password" class="form-control" placeholder="Password"> </div>
-        <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
+    <form class="navbar-form navbar-right" role="form" action="login" method="post">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default" id="login-btn">Sign in</button>
+    </form>
   </div>
 </nav>
