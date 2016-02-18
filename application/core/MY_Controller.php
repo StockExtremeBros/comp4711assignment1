@@ -45,9 +45,6 @@ class Application extends CI_Controller {
         //$this->data['header'] //this contains the navbar and title of the page.
         //$this->data['content'] // content of the page, depends on page
 	$this->parser->parse('_template', $this->data);
-        
-        
-        //$this->data['dependencies'] = $this->load->view('_dependencies', $this->data, true);
     }
     
     function create_navbar()
