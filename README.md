@@ -36,7 +36,7 @@ Header (Navbar and title) - Tyler (done?)
 
 Footer - Tyler (done)
 
-Game Logic - Micah
+~~Game Logic~~ (No "game logic" until assignment 2) Session Data - Micah
 
 ***************
 PROJECT FOLDERS
