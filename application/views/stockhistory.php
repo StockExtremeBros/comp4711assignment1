@@ -1,8 +1,16 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<div>
+<h1>
+    This is stock history page
+</h1>
+<select>
+    {dropdown}
+</select>
+<h3>
+    Recent Activity
+</h3>
+    {act_table}
+<h3>
+    Current Holdings
+</h3>
+    {holding_table}
+</div>
