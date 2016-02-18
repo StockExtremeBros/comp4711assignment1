@@ -30,6 +30,7 @@ class Players extends CI_Model{
             return null;
     }
     
+<<<<<<< HEAD
     function isPlayer($player)
     {
         $this->db->order_by("id", "desc");
@@ -39,5 +40,12 @@ class Players extends CI_Model{
             if ($record['Player'] == $player)
                     return true;
             return false;
+=======
+    function getPlayerNames()
+    {
+        //$this->db->order_by("id", "desc");
+        $query = $this->db->query('SELECT player FROM players');
+        return $query->result();
+>>>>>>> 0c2c177a9bcd9737cddc6cb9a9f3523c2caf7ea9
     }
 }
