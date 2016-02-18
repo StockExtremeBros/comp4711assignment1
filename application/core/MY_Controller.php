@@ -43,7 +43,7 @@ class Application extends CI_Controller {
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
 	$this->load->helper('url');
         $this->data['dependencies'] = $this->parser->parse('_dependencies', $this->data, true);
-       
+        
         // Check if the user is logged in via the php session
         if (array_key_exists('current_user', $_SESSION)) {
             $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
