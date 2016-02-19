@@ -3,11 +3,11 @@
         Player Statistics
     </h1>
     <div>
-        <p style="float:left">Choose player to view statistics:</p>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <select name="players" onchange="this.form.submit();">
+        <form class="ajax-form" role="forms" action="../forms/player_stats_dropdown" method="post">  
+            <select name="players" id="players">
                 {dropdown}
             </select>
+            <button type="submit" class="btn btn-default" id="login-btn">Go to player profile</button>
         </form>
     </div>
     <h3>

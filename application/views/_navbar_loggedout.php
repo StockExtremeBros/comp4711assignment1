@@ -4,9 +4,9 @@
       <a class="navbar-brand" href="#">{pagetitle}</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Stock History</a></li>
-      <li><a href="#">Portfolio</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/stockhistory">Stock History</a></li>
+      <li><a href="/Profiles">Profiles</a></li>
     </ul>
     <form class="navbar-form navbar-right ajax-form" role="forms" action="index.php/forms/login" method="post">
         <div class="form-group">

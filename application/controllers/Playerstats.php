@@ -17,7 +17,7 @@ class PlayerStats extends Application{
     {
 	parent::__construct();
     }
-    public function index()
+    public function index($current_player = null)
     {
         $this->load->library('table');
         $this->load->model('players');
@@ -26,30 +26,26 @@ class PlayerStats extends Application{
         
         $this->data['pagebody'] = 'player_stats';
         
-        //get current player
-        if (isset($_SESSION['current_user']))
+        if($current_player != null)
         {
-            $current_player = $_SESSION['current_user'];
-            $this->data['player'] = $current_player;
-            
-            //show current player's transactions
-            $this->display_player_recent_activity($current_player);
-            
-            //show current player's holdings
-            $this->display_player_current_holdings($current_player);
+            //Force the stock to be Uppercase first and lowercase for the rest.
+            $current_player = ucfirst(strtolower($current_player));
+        } else {
+            //get current player
+            if (isset($_SESSION['current_user']))
+            {
+                $current_player = $_SESSION['current_user'];
+            }
         }
         
-        if (isset($_POST['players']))
-        {
-            $current_player = $_POST['players'];
-            $this->data['player'] = $current_player;
+        $this->data['player'] = $current_player;
             
-            //show current player's transactions
-            $this->display_player_recent_activity($current_player);
+        //show current player's transactions
+        $this->populate_recent_activity($current_player);
             
-            //show current player's holdings
-            $this->display_player_current_holdings($current_player);
-        }
+        //show current player's holdings
+        $this->populate_holdings($current_player);
+      
         //fill dropdown with player names
         $this->fill_drop_down();
         
@@ -59,8 +55,7 @@ class PlayerStats extends Application{
     function fill_drop_down()
     {
         $allPlayers = $this->players->getPlayerNames();
-        $players = '<option value="">(choose a player)</option>';
-        
+        $players = '';
         foreach($allPlayers as $row)
         { 
              $players .= '<option value="'.$row->player.'">'.$row->player.'</option>';
@@ -68,19 +63,39 @@ class PlayerStats extends Application{
         $this->data['dropdown'] = $players;
     }
     
-    function display_player_recent_activity($player)
+    function populate_recent_activity($player)
     {
         $curr_player_trans = $this->transactions->getPlayerTransactions($player);
+        $tabletemp = array(
+            'table_open'        => '<table class="stock-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="stock-summary-row">',
+            'row_alt_start'         => '<tr class="stock-summary-row">'
+        );
+        $this->table->set_template($tabletemp);
         $this->table->set_heading('Date and Time', 'Stock', 'Transaction', 'Quantity');
-        foreach($curr_player_trans as $row)
-        { 
-             $this->table->add_row($row->DateTime, $row->Stock, $row->Trans, $row->Quantity);
+        if ($curr_player_trans == null)
+        {
+            $this->table->add_row("No data", "No data", "No data", "No data");
+        } else {
+            foreach($curr_player_trans as $row)
+            { 
+                $this->table->add_row($row->DateTime, $row->Stock, $row->Trans, $row->Quantity);
+            }
         }
+        
         $this->data['act_table'] = $this->table->generate();
     }
     
-    function display_player_current_holdings($player)
+    function populate_holdings($player)
     {
+        $tabletemp = array(
+            'table_open'        => '<table class="player-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="player-summary-row">',
+            'row_alt_start'         => '<tr class="player-summary-row">'
+        );
+        $this->table->set_template($tabletemp);
         $this->table->set_heading('Stock', 'Quantity');
         $allStocks = $this->stocks->getStockCodes();
         foreach ($allStocks as $row)
