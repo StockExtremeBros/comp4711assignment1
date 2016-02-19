@@ -24,7 +24,7 @@ class Stocks extends CI_Model{
         $query = $this->db->get('stocks');
         
         foreach ($query as $record)
-            if ($record['Code'] == $stock)
+            if ($record['Name'] == $stock)
                     return $record;
             return null;
     }
@@ -35,7 +35,18 @@ class Stocks extends CI_Model{
         $query = $this->db->query('SELECT Name FROM stocks');
         return $query->result();
     }
-
+    
+    function getStockCodeFromName($Name)
+    {
+        $sql = "SELECT Code, Value FROM stocks WHERE Name = ? LIMIT 1";
+        $query = $this->db->query($sql, array($Name));
+        
+        foreach($query->result_array() as $row)
+        {
+            return $row;
+        }
+        return null;
+    }
     
     function getStockCodes()
     {

@@ -1,16 +1,19 @@
 <div>
 <h1>
-    This is stock history page
+    {stock} History page
 </h1>
-<select>
-    {dropdown}
-</select>
+<form class="ajax-form" role="forms" action="../forms/stockhistorydropdown" method="post">  
+    <select name="stocks" id="stocks">
+        {dropdown}
+    </select>
+    <button type="submit" class="btn btn-default" id="login-btn">Go to stock</button>
+</form>
 <h3>
-    Recent Activity
+    Recent Transactions
 </h3>
-    {act_table}
+    {trans_table}
 <h3>
-    Current Holdings
+    Recent Movements
 </h3>
-    {holding_table}
+    {move_table}
 </div>
