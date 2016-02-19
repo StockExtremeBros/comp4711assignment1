@@ -62,7 +62,9 @@ class Welcome extends Application {
             'table_open'        => '<table class="stock-summary table table-striped table-hover">',
             'heading_row_start' => '<tr>',
             'row_start'         => '<tr class="stock-summary-row">',
-            'row_alt_start'         => '<tr class="stock-summary-row">'
+            'row_alt_start'         => '<tr class="stock-summary-row">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
         
@@ -90,7 +92,9 @@ class Welcome extends Application {
             'table_open'        => '<table class="player-summary table table-striped table-hover">',
             'heading_row_start' => '<tr>',
             'row_start'         => '<tr class="player-summary-row">',
-            'row_alt_start'         => '<tr class="player-summary-row">'
+            'row_alt_start'         => '<tr class="player-summary-row">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
         

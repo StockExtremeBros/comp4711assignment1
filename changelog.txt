@@ -1,5 +1,6 @@
 Date and time               Who         What was done
 ===================================================================================================
+Feb 19th, 2016 [1:00pm]     Gabriella   Added background image
 Feb 19th, 2016 [10:45am]    Gabriella   Fixed broken link in logged out navbar
 Feb 19th, 2016 [12:32am]    Gabriella   Fixed links in navbar, added function to calculate equity,
                                         changed player stats page to be more consistent with other

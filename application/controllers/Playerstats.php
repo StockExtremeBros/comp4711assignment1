@@ -19,36 +19,44 @@ class PlayerStats extends Application{
     }
     public function index($current_player = null)
     {
-        $this->load->library('table');
-        $this->load->model('players');
-        $this->load->model('transactions');
-        $this->load->model('stocks');
-        
-        $this->data['pagebody'] = 'player_stats';
-        
-        if($current_player != null)
+        // Check if 'current_user' has been set yet this session
+        // If not, the user is not logged in
+        if (!array_key_exists('current_user', $_SESSION))
         {
-            //Force the stock to be Uppercase first and lowercase for the rest.
-            $current_player = ucfirst(strtolower($current_player));
-        } else {
-            //get current player
-            if (isset($_SESSION['current_user']))
-            {
-                $current_player = $_SESSION['current_user'];
-            }
+            $this->data['pagebody'] = 'login_notice';
         }
+        else
+        {
+            $this->load->library('table');
+            $this->load->model('players');
+            $this->load->model('transactions');
+            $this->load->model('stocks');
         
-        $this->data['player'] = $current_player;
+            $this->data['pagebody'] = 'player_stats';
+        
+            if($current_player != null)
+            {
+                //Force the stock to be Uppercase first and lowercase for the rest.
+                $current_player = ucfirst(strtolower($current_player));
+            } else {
+                //get current player
+                if (isset($_SESSION['current_user']))
+                {
+                    $current_player = $_SESSION['current_user'];
+                }
+            }
+        
+            $this->data['player'] = $current_player;
             
-        //show current player's transactions
-        $this->populate_recent_activity($current_player);
+            //show current player's transactions
+            $this->populate_recent_activity($current_player);
             
-        //show current player's holdings
-        $this->populate_holdings($current_player);
+            //show current player's holdings
+            $this->populate_holdings($current_player);
       
-        //fill dropdown with player names
-        $this->fill_drop_down();
-        
+            //fill dropdown with player names
+            $this->fill_drop_down();
+        }
         $this->render();
     }
     
@@ -67,10 +75,12 @@ class PlayerStats extends Application{
     {
         $curr_player_trans = $this->transactions->getPlayerTransactions($player);
         $tabletemp = array(
-            'table_open'        => '<table class="stock-summary table table-striped table-hover">',
+            'table_open'        => '<table class="player-activity table table-striped table-hover">',
             'heading_row_start' => '<tr>',
-            'row_start'         => '<tr class="stock-summary-row">',
-            'row_alt_start'         => '<tr class="stock-summary-row">'
+            'row_start'         => '<tr class="player-activity-row">',
+            'row_alt_start'         => '<tr class="player-activity-row">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
         $this->table->set_heading('Date and Time', 'Stock', 'Transaction', 'Quantity');
@@ -90,10 +100,12 @@ class PlayerStats extends Application{
     function populate_holdings($player)
     {
         $tabletemp = array(
-            'table_open'        => '<table class="player-summary table table-striped table-hover">',
+            'table_open'        => '<table class="player-holdings table table-striped table-hover">',
             'heading_row_start' => '<tr>',
-            'row_start'         => '<tr class="player-summary-row">',
-            'row_alt_start'         => '<tr class="player-summary-row">'
+            'row_start'         => '<tr class="player-holding-row">',
+            'row_alt_start'         => '<tr class="player-holding-row">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
         $this->table->set_heading('Stock', 'Quantity');
