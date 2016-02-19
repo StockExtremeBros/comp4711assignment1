@@ -26,11 +26,11 @@ WORK BREAKDOWN
 
 Database - Tyler
 
-Player stats - Gabriella
+Player stats - Gabriella (done?)
 
 Stock stats - Micah
 
-Dependencies - Gabriella
+Dependencies - Gabriella (done)
 
 Header (Navbar and title) - Tyler (done?)
 
