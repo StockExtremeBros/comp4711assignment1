@@ -1,10 +1,14 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
-            Stock overview placeholder
+        <div class="col-lg-4">
+            <div class="table-responsive">
+                {stockoverview}
+            </div>
         </div>
-        <div class="col-lg-6">
-            Player overview placeholder
+        <div class="col-lg-4">
+            <div class="table-responsive">
+                {playeroverview}
+            </div>
         </div>
     </div>
 </div>
