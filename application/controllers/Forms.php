@@ -21,6 +21,13 @@ class Forms extends Application {
         redirect(base_url());
     }
     
+    public function StockHistoryDropDown()
+    {
+        $stock = $this->input->post('stocks');
+
+        redirect(base_url()."stockhistory/".$stock);
+    }
+    
     /**
      * Destroy the session upon logout
      */

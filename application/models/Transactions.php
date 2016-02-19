@@ -31,7 +31,9 @@ class Transactions extends CI_Model{
     
     function getStockTransaction($stock)
     {
-        $query = $this->db->query("SELECT * FROM transactions WHERE Stock = \'".$stock."\'");
+        $sql = "SELECT * FROM transactions WHERE Stock = ?";
+        $query = $this->db->query($sql, array($stock));
+        
         return $query->result();
     }
 }

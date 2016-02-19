@@ -18,14 +18,11 @@ class Movements extends CI_Model{
         return $query->result_array();
     }
     
-    function getStockMovements($stock)
+    function getStockMovements($code)
     {
-        $this->db->order_by("id", "desc");
-        $query = $this->db->get('stocks');
+        $sql = "SELECT * FROM movements WHERE Code = ?";
+        $query = $this->db->query($sql, array($code));
         
-        foreach ($query as $record)
-            if ($record['Code'] == $stock)
-                    return $record;
-            return null;
+        return $query->result();
     }
 }
