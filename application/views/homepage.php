@@ -1,4 +1,7 @@
 <div class="container">
+    <h1>
+        Home Page
+    </h1>
     <div class="row">
         <div class="col-lg-4">
             <div class="table-responsive">

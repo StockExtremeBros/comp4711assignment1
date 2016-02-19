@@ -29,6 +29,12 @@ class Stocks extends CI_Model{
             return null;
     }
 
+    function getStockNameValue()
+    {
+        $query = $this->db->query('SELECT Name, Value FROM stocks ORDER BY Name desc');
+        return $query->result_array();
+    }
+    
     function getStockNames()
     {
         //$this->db->order_by("id", "desc");
