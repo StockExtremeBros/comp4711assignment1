@@ -9,7 +9,7 @@
       <li><a href="/profiles">Profiles</a></li>
     </ul>
     <form class="navbar-form navbar-right ajax-form" role="forms" action="../forms/logout" method="post">
-        <label class="text-muted">User: <?php echo $_SESSION['current_user']?>&nbsp;&nbsp;&nbsp;</label>
+        <label class="text-muted">User: {current_user}&nbsp;&nbsp;&nbsp;</label>
         <button type="submit" class="btn btn-default" id="logout-btn">Sign out</button>
     </form>
   </div>
