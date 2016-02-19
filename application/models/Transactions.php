@@ -36,7 +36,7 @@ class Transactions extends CI_Model{
     
     function getStockTransaction($stock)
     {
-        $sql = "SELECT * FROM transactions WHERE Stock = ?";
+        $sql = "SELECT * FROM transactions WHERE Stock = ? ORDER BY DateTime DESC";
         $query = $this->db->query($sql, array($stock));
         
         return $query->result();
