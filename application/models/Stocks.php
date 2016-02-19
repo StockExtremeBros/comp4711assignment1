@@ -24,7 +24,7 @@ class Stocks extends CI_Model{
         $query = $this->db->get('stocks');
         
         foreach ($query as $record)
-            if ($record['Code'] == $stock)
+            if ($record['Name'] == $stock)
                     return $record;
             return null;
     }

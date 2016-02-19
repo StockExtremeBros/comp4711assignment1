@@ -23,8 +23,14 @@ class StockHistory extends Application {
             if($stock != null)
             {
                 var_dump($stock);
+                
+                //Force the stock to be Uppercase first and lowercase for the rest.
+                $stock = ucfirst(strtolower($stock));
+            } else {
+                //Grab the most recent $stock transaction here.
+                $stock = 'Gold';
             }
-
+            
             $this->data['pagebody'] =  'stockhistory';
             
             //fill dropdown with player names
@@ -35,6 +41,32 @@ class StockHistory extends Application {
                  $stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
             }
             $this->data['dropdown'] = $stocks;
+            
+            //Create the Transaction table for the stock
+            $stockTrans = $this->transactions->getStockTransaction($stock);
+            if($stock == null)
+            {
+                $stock == 'Gold';
+            }
+            foreach ($stockTrans as $trans)
+            {
+                $cells[] = $this->parser->parse('_cell', (array) $picture, true);
+            }
+                
+                
+            $this->load->library('table');
+            $parms = array(
+                'table_open' => '<table class="gallery">',
+                'cell_start' => '<td class="oneimage">',
+                'cell_alt_start' => '<td class="oneimage">'
+            );
+            $this->table->set_template($parms);
+
+            $rows = $this->table->make_columns($cells, 3);
+            $this->data['thetable'] = $this->table->generate($rows);
+            
+            $this->data['move_table'];
+            $this->data['trans_table'];
             
             $this->render();
 	}

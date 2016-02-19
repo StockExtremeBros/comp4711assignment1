@@ -18,14 +18,20 @@ class Transactions extends CI_Model{
         return $query->result_array();
     }
     
-    function getPlayerTransaction($stock)
+    function getPlayerTransaction($player)
     {
         $this->db->order_by("id", "desc");
         $query = $this->db->get('transactions');
         
         foreach ($query as $record)
-            if ($record['Player'] == $stock)
+            if ($record['Player'] == $player)
                     return $record;
             return null;
+    }
+    
+    function getStockTransaction($stock)
+    {
+        $query = $this->db->query("SELECT * FROM transactions WHERE Stock = \'".$stock."\'");
+        return $query->result();
     }
 }
