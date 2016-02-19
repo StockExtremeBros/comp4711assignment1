@@ -66,9 +66,9 @@ class PlayerStats extends Application{
         $players = '';
         foreach($allPlayers as $row)
         { 
-             $players .= '<option value="'.$row->player.'">'.$row->player.'</option>';
+             $players .= '<li><a href="/profiles/'.$row->player.'">'.$row->player.'</a></li>';
         }
-        $this->data['dropdown'] = $players;
+        $this->data['dropdownoptions'] = $players;
     }
     
     function populate_recent_activity($player)

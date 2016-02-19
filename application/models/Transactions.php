@@ -41,4 +41,12 @@ class Transactions extends CI_Model{
         
         return $query->result();
     }
+    
+    function getRecentStockTransaction()
+    {
+        $sql = "SELECT * FROM transactions ORDER BY DateTime DESC LIMIT 1";
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
 }

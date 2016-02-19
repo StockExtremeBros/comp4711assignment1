@@ -59,4 +59,12 @@ class Stocks extends CI_Model{
         $query = $this->db->query('SELECT Code FROM stocks');
         return $query->result();
     }
+    
+    function getStockNameFromCode($Code)
+    {
+        $sql = "SELECT Name, Value FROM stocks WHERE Code = ? LIMIT 1";
+        $query = $this->db->query($sql, array($Code));
+        
+        return $query->result_array();
+    }
 }
