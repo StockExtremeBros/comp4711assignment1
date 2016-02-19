@@ -20,37 +20,45 @@ class StockHistory extends Application {
 	 */
     public function index($stock = null)
     {
-        if($stock != null)
+        // Check if 'current_user' has been set yet this session
+        // If not, the user is not logged in
+        if (!array_key_exists('current_user', $_SESSION))
         {
-            //Force the stock to be Uppercase first and lowercase for the rest.
-            $stock = ucfirst(strtolower($stock));
-        } else {
-            //Grab the most recent $stock transaction here.
-            $stock = 'Gold';
+            $this->data['pagebody'] = 'login_notice';
         }
+        else
+        {
+            if($stock != null)
+            {
+                //Force the stock to be Uppercase first and lowercase for the rest.
+                $stock = ucfirst(strtolower($stock));
+            } else {
+                //Grab the most recent $stock transaction here.
+                $stock = 'Gold';
+            }
 
-        $this->data['pagebody'] =  'stockhistory';
-        $this->data['stock'] = $stock;
-        //fill dropdown with player names
-        $allStocks = $this->stocks->getStockNames();
+            $this->data['pagebody'] =  'stockhistory';
+            $this->data['stock'] = $stock;
+            //fill dropdown with player names
+            $allStocks = $this->stocks->getStockNames();
   
-        $stocks = '';
-        foreach($allStocks as $row)
-        { 
-             $stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
+            $stocks = '';
+            foreach($allStocks as $row)
+            { 
+                $stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
+            }
+            $this->data['dropdown'] = $stocks;
+        
+            //Create the Transaction table for the stock
+            $stockTrans = $this->transactions->getStockTransaction($stock);
+            if($stock == null)
+            {
+                $stock = 'Gold';
+            }
+        
+            $this->populate_trans($stock);
+            $this->populate_move($stock);
         }
-        $this->data['dropdown'] = $stocks;
-        
-        //Create the Transaction table for the stock
-        $stockTrans = $this->transactions->getStockTransaction($stock);
-        if($stock == null)
-        {
-            $stock = 'Gold';
-        }
-        
-        $this->populate_trans($stock);
-        $this->populate_move($stock);
-        
         $this->render();
     }
     
@@ -80,7 +88,9 @@ class StockHistory extends Application {
         $this->load->library('table');
         $tabletemp = array(
             'table_open' => '<table class="stock-transaction table table-striped table-hover">',
-            'row_start'  => '<tr class="stock-transaction">'
+            'row_start'  => '<tr class="stock-transaction">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
 
@@ -116,7 +126,9 @@ class StockHistory extends Application {
         $this->load->library('table');
         $tabletemp = array(
             'table_open' => '<table class="stock-movement table table-striped table-hover">',
-            'row_start'  => '<tr class="stock-movement">'
+            'row_start'  => '<tr class="stock-movement">',
+            'heading_cell_start'    => '<th class="cell">',
+            'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
 

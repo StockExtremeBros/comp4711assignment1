@@ -1,6 +1,6 @@
 <div>
 <h1>
-    {stock} History page
+    {stock} History
 </h1>
 <form class="ajax-form" role="forms" action="../forms/stockhistorydropdown" method="post">  
     <select name="stocks" id="stocks">
