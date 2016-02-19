@@ -1,6 +1,6 @@
 <div>
     <h1>
-        Player Statistics
+        Player Profiles
     </h1>
     <div>
         <form class="ajax-form" role="forms" action="../forms/player_stats_dropdown" method="post">  
