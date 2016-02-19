@@ -13,7 +13,7 @@ class Stocks extends CI_Model{
     
     function all()
     {
-        $this->db->order_by("id", "desc");
+        $this->db->order_by("name", "desc"); // change "name" back to "id" in assign 2
         $query = $this->db->get('stocks');
         return $query->result_array();
     }

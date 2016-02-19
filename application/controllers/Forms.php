@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Forms extends Application {
     
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->helper('url');
     }
