@@ -41,45 +41,59 @@ class Welcome extends Application {
         $this->render();
     }
     
+    /**
+     * Fetches the stock data from the database and creates a table to display
+     * the data.
+     */
     public function populate_stocks()
     {
+        // /stockhistory/{Name}
         $stocks = $this->stocks->all();
         
-        foreach ($stocks as $s)
+        foreach ($stocks as $key => $s)
         {
-            $cells[] = $this->parser->parse('_cell_stocksummary', (array) $s, true);
+            unset($s['Code']);
+            unset($s['Category']);
+            $stocks[$key] = $s;
         }
         
         $this->load->library('table');
         $tabletemp = array(
-            'table_open' => '<table class="stock-summary table table-striped table-hover">',
-            'row_start'  => '<tr class="stock-summary">'
+            'table_open'        => '<table class="stock-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="stock-summary-row">',
+            'row_alt_start'         => '<tr class="stock-summary-row">'
         );
         $this->table->set_template($tabletemp);
         
         $this->table->set_heading('Stock', 'Current Stock Value');
-        $rows = $this->table->make_columns($cells, 1);
-        $this->data['stockoverview'] = $this->table->generate($rows);
+        $this->data['stockoverview'] = $this->table->generate($stocks);
     }
     
+    /**
+     * Fetches the player data from the database and creates a table to display
+     * the data.
+     */
     public function populate_profiles()
     {
         $players = $this->players->all();
         
-        foreach ($players as $playa)
+        foreach ($players as $key => $playa)
         {
-            $cells[] = $this->parser->parse('_cell_playersummary', (array) $playa, true);
+            $playa['Equity'] = 'unknown';
+            $players[$key] = $playa;
         }
         
         $this->load->library('table');
         $tabletemp = array(
-            'table_open' => '<table class="player-summary table table-striped table-hover">',
-            'row_start'  => '<tr class="player-summary">'
+            'table_open'        => '<table class="player-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="player-summary-row">',
+            'row_alt_start'         => '<tr class="player-summary-row">'
         );
         $this->table->set_template($tabletemp);
         
         $this->table->set_heading('Player', 'Current Cash', 'Current Equity');
-        $rows = $this->table->make_columns($cells, 1);
-        $this->data['playeroverview'] = $this->table->generate($rows);
+        $this->data['playeroverview'] = $this->table->generate($players);
     }
 }
