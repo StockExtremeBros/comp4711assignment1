@@ -47,6 +47,7 @@ class Welcome extends Application {
      */
     public function populate_stocks()
     {
+        // /stockhistory/{Name}
         $stocks = $this->stocks->all();
         
         foreach ($stocks as $key => $s)
@@ -58,8 +59,10 @@ class Welcome extends Application {
         
         $this->load->library('table');
         $tabletemp = array(
-            'table_open' => '<table class="stock-summary table table-striped table-hover">',
-            'row_start'  => '<tr class="stock-summary">'
+            'table_open'        => '<table class="stock-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="stock-summary-row">',
+            'row_alt_start'         => '<tr class="stock-summary-row">'
         );
         $this->table->set_template($tabletemp);
         
@@ -83,8 +86,10 @@ class Welcome extends Application {
         
         $this->load->library('table');
         $tabletemp = array(
-            'table_open' => '<table class="player-summary table table-striped table-hover">',
-            'row_start'  => '<tr class="player-summary">'
+            'table_open'        => '<table class="player-summary table table-striped table-hover">',
+            'heading_row_start' => '<tr>',
+            'row_start'         => '<tr class="player-summary-row">',
+            'row_alt_start'         => '<tr class="player-summary-row">'
         );
         $this->table->set_template($tabletemp);
         
