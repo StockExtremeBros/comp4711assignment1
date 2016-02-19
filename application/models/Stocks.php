@@ -28,7 +28,7 @@ class Stocks extends CI_Model{
                     return $record;
             return null;
     }
-    
+
     function getStockNames()
     {
         //$this->db->order_by("id", "desc");
@@ -46,5 +46,11 @@ class Stocks extends CI_Model{
             return $row;
         }
         return null;
+    }
+    
+    function getStockCodes()
+    {
+        $query = $this->db->query('SELECT Code FROM stocks');
+        return $query->result();
     }
 }

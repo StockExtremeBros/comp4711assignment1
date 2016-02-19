@@ -18,15 +18,20 @@ class Transactions extends CI_Model{
         return $query->result_array();
     }
     
-    function getPlayerTransaction($player)
+    function getPlayerTransactions($player)
     {
         $this->db->order_by("id", "desc");
-        $query = $this->db->get('transactions');
-        
-        foreach ($query as $record)
-            if ($record['Player'] == $player)
-                    return $record;
-            return null;
+        $queryString = sprintf("SELECT * FROM transactions WHERE player='%s' ORDER BY DateTime DESC", $player);
+        $query = $this->db->query($queryString);
+        return $query->result();   
+    }
+    
+    function getPlayerTransactionsForStock($player, $stock)
+    {
+        //$this->db->order_by("id", "desc");
+        $queryString = sprintf("SELECT Trans, Quantity FROM transactions WHERE player='%s' AND stock='%s'", $player, $stock);
+        $query = $this->db->query($queryString);
+        return $query->result();   
     }
     
     function getStockTransaction($stock)
