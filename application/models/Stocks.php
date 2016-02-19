@@ -28,4 +28,11 @@ class Stocks extends CI_Model{
                     return $record;
             return null;
     }
+    
+    function getStockNames()
+    {
+        //$this->db->order_by("id", "desc");
+        $query = $this->db->query('SELECT Name FROM stocks');
+        return $query->result();
+    }
 }
