@@ -1,22 +1,25 @@
-Date and time           Who         What was done
+Date and time               Who         What was done
 ===================================================================================================
-Feb 19th, 2016 [7:20pm] Micah       99% done, waiting on reply from Gabriella
-Feb 19th, 2016 [6:19pm] Micah       Refactored table generation, fixed login redirects
-Feb 19th, 2016 [3:38pm] Micah       Added summary tables in front page
-Feb 18th, 2016 [6:06pm] Gabriella   Player stats now update when player is selected via dropdown,
-                                    player stats first load with logged in user's stats.
-Feb 18th, 2016 [1:30pm] Gabriella   Added Player Stats page which displays player's recent
-                                    transactions and current stock holdings.
-Feb 18th, 2016 [6:16am] Micah       Form handling for login, initial homepage setup, session data &
-                                    full mock logging in functionality
-Feb 18th, 2016 [2:45am] Micah       Initial form handling tests
-Feb 18th, 2016 [2:30am] Micah       Adjusted task list for myself, beautified navbar
-Feb 18th, 2016 [1:40am] Micah       Quick fixes to make site bootstrap-compliant
-Feb 17th, 2016 [3:55pm] Gabriella   Added dependencies
-Feb 16th, 2016 [7:35pm] Tyler       Added in Header/Footer/Navbar
-Feb 16th, 2016 [2:07pm] Tyler       Added in the generic footer element
-Feb 15th, 2016 [5:25pm] Tyler       Initial controller setup for CodeIgniter.
-Feb 9th, 2016 [5:17pm]  Tyler       Added in example designs for site
-Feb 9th, 2016 [4:14pm]	Gabriella   Created empty PHP project, added CI framework
+Feb 19th, 2016 [12:32am]    Gabriella   Fixed links in navbar, added function to calculate equity,
+                                        changed player stats page to be more consistent with other
+                                        pages, fixed player stats routing, fixed logout link
+Feb 18th, 2016 [7:20pm]     Micah       99% done, waiting on reply from Gabriella
+Feb 18th, 2016 [6:19pm]     Micah       Refactored table generation, fixed login redirects
+Feb 18th, 2016 [6:06pm]     Gabriella   Player stats now update when player is selected via dropdown,
+                                        player stats first load with logged in user's stats.
+Feb 18th, 2016 [3:38pm]     Micah       Added summary tables in front page
+Feb 18th, 2016 [1:30pm]     Gabriella   Added Player Stats page which displays player's recent
+                                        transactions and current stock holdings.
+Feb 18th, 2016 [6:16am]     Micah       Form handling for login, initial homepage setup, session data &
+                                        full mock logging in functionality
+Feb 18th, 2016 [2:45am]     Micah       Initial form handling tests
+Feb 18th, 2016 [2:30am]     Micah       Adjusted task list for myself, beautified navbar
+Feb 18th, 2016 [1:40am]     Micah       Quick fixes to make site bootstrap-compliant
+Feb 17th, 2016 [3:55pm]     Gabriella   Added dependencies
+Feb 16th, 2016 [7:35pm]     Tyler       Added in Header/Footer/Navbar
+Feb 16th, 2016 [2:07pm]     Tyler       Added in the generic footer element
+Feb 15th, 2016 [5:25pm]     Tyler       Initial controller setup for CodeIgniter.
+Feb 9th, 2016 [5:17pm]      Tyler       Added in example designs for site
+Feb 9th, 2016 [4:14pm]      Gabriella   Created empty PHP project, added CI framework
 
 

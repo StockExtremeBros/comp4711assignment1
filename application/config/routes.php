@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['portfolio'] = 'playerstats/index';
+$route['profiles'] = 'playerstats/index';
+$route['profiles/(:any)'] = 'playerstats/index/$1';
 $route['stockhistory'] = 'stockhistory/index';
 $route['stockhistory/(:any)'] = 'stockhistory/index/$1';
