@@ -6,18 +6,21 @@
  * and open the template in the editor.
  */
 class Stocks extends CI_Model{
-    //put your code here
+   
+    //Create the Stocks model
     function __construct() {
         parent::__construct();
     }
     
+    // Grab all of the information from the Stocks table
     function all()
     {
-        $this->db->order_by("name", "desc"); // change "name" back to "id" in assign 2
+        $this->db->order_by("name", "desc"); 
         $query = $this->db->get('stocks');
         return $query->result_array();
     }
     
+    //Grab all information relating to a particular stock.
     function getStock($stock)
     {
         $this->db->order_by("id", "desc");
@@ -28,13 +31,15 @@ class Stocks extends CI_Model{
                     return $record;
             return null;
     }
-
+    
+    //Get all of the Names and Values from the stocks table.
     function getStockNameValue()
     {
         $query = $this->db->query('SELECT Name, Value FROM stocks ORDER BY Name desc');
         return $query->result_array();
     }
     
+    //Get all of the names of the stocks from the stocks table.
     function getStockNames()
     {
         //$this->db->order_by("id", "desc");
@@ -42,6 +47,7 @@ class Stocks extends CI_Model{
         return $query->result();
     }
     
+    //Get the Code and Value from the stocks table using its name.
     function getStockCodeFromName($Name)
     {
         $sql = "SELECT Code, Value FROM stocks WHERE Name = ? LIMIT 1";
@@ -54,12 +60,14 @@ class Stocks extends CI_Model{
         return null;
     }
     
+    //Get all of the codes from the stocks table.
     function getStockCodes()
     {
         $query = $this->db->query('SELECT Code FROM stocks');
         return $query->result();
     }
     
+    //Get only name and value from the stocks table with a stock's code.
     function getStockNameFromCode($Code)
     {
         $sql = "SELECT Name, Value FROM stocks WHERE Code = ? LIMIT 1";

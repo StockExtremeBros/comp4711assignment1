@@ -25,14 +25,14 @@ class Application extends CI_Controller {
 	$this->data = array();
 	$this->data['pagetitle'] = 'StockExtremeBros';
         $this->load->library('parser');
-        // Load form helper library
-        //$this->load->helper('form');
-        // Load form validation library
+        // Load 
         $this->load->library('form_validation');
         // Load session library
         $this->load->library('session');
         // Load database
         $this->load->model('players');
+        // Load url helper
+        $this->load->helper('url');
     }
 
     /**
@@ -41,8 +41,8 @@ class Application extends CI_Controller {
     function render()
     {
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-	$this->load->helper('url');
         $this->data['dependencies'] = $this->parser->parse('_dependencies', $this->data, true);
+        $this->data['footer'] = $this->load->view('_footer', $this->data, true);
         
         // Check if the user is logged in via the php session
         if (array_key_exists('current_user', $_SESSION)) {
@@ -52,20 +52,17 @@ class Application extends CI_Controller {
             $navbar =  $this->parser->parse('_navbar_loggedout', $this->data, true);
         }
         $this->data['header'] = $navbar;
-        $this->data['footer'] = $this->load->view('_footer', $this->data, true);
+        
         $this->data['data'] = &$this->data;
-
-        //$this->data['dependencies'] //conains all css, js scripts, resources, imgs, etc.
-        //$this->data['header'] //this contains the navbar and title of the page.
-        //$this->data['content'] // content of the page, depends on page
 	$this->parser->parse('_template', $this->data);
     }
     
+    // Authenticate the user
     function auth_user()
     {
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
         //$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-        var_dump($this->data);
+
         if ($this->form_validation->run() == FALSE) {
             if(isset($this->session->userdata['logged_in'])){
                 $this->data['username'] = $this->session->userdata['logged_in'];
@@ -89,11 +86,16 @@ class Application extends CI_Controller {
         $this->load->view('welcome_message');
     }
     
+    //Create the navigate bar with the nav-items in the $choices variable
     function create_navbar()
     {   
         $rows = array();
+        
         foreach ($this->choices as $navitem)
+        {
             $rows[] = (array) $navitem;
+        }
+  
         $parms['records'] = $rows;
         $this->data['navitems'] = $this->parser->parse('_navbar',$parms, true);
     }

@@ -6,11 +6,13 @@
  * and open the template in the editor.
  */
 class Transactions extends CI_Model{
-    //put your code here
+    
+    //Create the transactions model
     function __construct() {
         parent::__construct();
     }
     
+    //Grab all of the information from the Transactions table.
     function all()
     {
         $this->db->order_by("id", "desc");
@@ -18,6 +20,7 @@ class Transactions extends CI_Model{
         return $query->result_array();
     }
     
+    //Grab a specific player's transactions
     function getPlayerTransactions($player)
     {
         $this->db->order_by("id", "desc");
@@ -26,6 +29,7 @@ class Transactions extends CI_Model{
         return $query->result();   
     }
     
+    //Get a player's transaction in regards to a specific stock
     function getPlayerTransactionsForStock($player, $stock)
     {
         //$this->db->order_by("id", "desc");
@@ -34,6 +38,7 @@ class Transactions extends CI_Model{
         return $query->result();   
     }
     
+    //Get a stock's transaction history in descending time order.
     function getStockTransaction($stock)
     {
         $sql = "SELECT * FROM transactions WHERE Stock = ? ORDER BY DateTime DESC";
@@ -42,6 +47,7 @@ class Transactions extends CI_Model{
         return $query->result();
     }
     
+    //Get the most recent stock transaction
     function getRecentStockTransaction()
     {
         $sql = "SELECT * FROM transactions ORDER BY DateTime DESC LIMIT 1";
