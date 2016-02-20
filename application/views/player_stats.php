@@ -1,6 +1,6 @@
 <div class="container">
     <h1>
-        Player Profiles
+        Player Profile
     </h1>
     <div class="row">
         <div class="dropdown dropdown-menu-right">
@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <h3>Recent Activity for {player}</h3>
+            <h3>Recent Activities for {player}</h3>
             <div class="table-responsive">
                 {act_table}
             </div>
