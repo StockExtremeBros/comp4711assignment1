@@ -36,7 +36,7 @@ class PlayerStats extends Application{
         
             if($current_player != null)
             {
-                //Force the stock to be Uppercase first and lowercase for the rest.
+                //Force the player to be Uppercase first and lowercase for the rest.
                 $current_player = ucfirst(strtolower($current_player));
             } else {
                 //get current player
@@ -60,6 +60,7 @@ class PlayerStats extends Application{
         $this->render();
     }
     
+    // gets player names from database and fills dropdown
     function fill_drop_down()
     {
         $allPlayers = $this->players->getPlayerNames();
@@ -71,6 +72,7 @@ class PlayerStats extends Application{
         $this->data['dropdownoptions'] = $players;
     }
     
+    // gets the recent activity for a player and display it in a table
     function populate_recent_activity($player)
     {
         $curr_player_trans = $this->transactions->getPlayerTransactions($player);
@@ -97,6 +99,7 @@ class PlayerStats extends Application{
         $this->data['act_table'] = $this->table->generate();
     }
     
+    // gets the current holdings for a player and display it in a table.
     function populate_holdings($player)
     {
         $tabletemp = array(
