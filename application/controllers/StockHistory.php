@@ -28,14 +28,13 @@ class StockHistory extends Application {
         }
         else
         {
-            if($stock != null)
+            if($stock == null)
             {
-                //Force the stock to be Uppercase first and lowercase for the rest.
-                $stock = ucfirst(strtolower($stock));
-            } else {
                 //Grab the most recent $stock transaction here.
-                $stock = 'Gold';
+                $stock = $this->getMostRecentTransaction();                
             }
+            
+            $stock = ucfirst(strtolower($stock));
 
             $this->data['pagebody'] =  'stockhistory';
             $this->data['stock'] = $stock;
@@ -45,9 +44,11 @@ class StockHistory extends Application {
             $stocks = '';
             foreach($allStocks as $row)
             { 
-                $stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
+                $stocks .= '<li><a href="/stockhistory/'.$row->Name.'">'.$row->Name.'</a></li>';
+                //redirect(base_url()."stockhistory/".$stock);
+                //$stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
             }
-            $this->data['dropdown'] = $stocks;
+            $this->data['dropdownoptions'] = $stocks;
         
             //Create the Transaction table for the stock
             $stockTrans = $this->transactions->getStockTransaction($stock);
@@ -60,6 +61,21 @@ class StockHistory extends Application {
             $this->populate_move($stock);
         }
         $this->render();
+    }
+    
+    public function getMostRecentTransaction()
+    {
+        $recent = $this->transactions->getRecentStockTransaction();
+        foreach($recent as $key=>$value)
+        {
+            $code = $value['Stock'];
+            $stock = $this->stocks->getStockNameFromCode($code);
+        }
+        foreach($stock as $key=>$value)
+        {
+            $name = $value['Name'];
+        }
+        return $name;
     }
     
     public function populate_trans($stock)

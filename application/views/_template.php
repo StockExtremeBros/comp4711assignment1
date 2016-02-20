@@ -5,17 +5,17 @@
     </head>
     <body>
         <div id="bg">
-        <div id="wrapper">
-            <div id="header">
-                {header}
+            <div id="wrapper">
+                <div id="header">
+                    {header}
+                </div>
+                <div id="content">
+                    {content}
+                </div>
+                <div id="footer" class="span12">
+                    {footer}
+                </div>
             </div>
-            <div id="content">
-                {content}
-            </div>
-            <div id="footer" class="span12">
-                {footer}
-            </div>
-        </div>
         </div>
         <script type="text/javascript" src="assets/js/scripts.js"></script> 
     </body>

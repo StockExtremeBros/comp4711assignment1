@@ -8,15 +8,44 @@ and open the template in the editor.
     Author     : Tyler
 */
 
+html, body {
+    margin: 0;
+    height: 100%;
+    background-image: url("/assets/pictures/nasdaq_studio.jpg");
+    background-size:100%;
+    background-color: black;
+    background-repeat: no-repeat;
+}
+
+ul.dropdown-menu {
+    left: 50% !important;
+    margin-left: -70px;
+}
+
 .footer-text {
     color:white; 
     text-align: center;
+}
+
+h3 {
+    color:whitesmoke;
+    background-color: #1F1010;
+}
+
+th {
+    background-color: #4F4646;
+    color:whitesmoke;
 }
 
 .footer {
     position: fixed;
     bottom: 0px;
     width: 100%;
+    margin-top: 5%;
+}
+
+.navbar {
+    margin-bottom: 2%;
 }
 
 .cell {
@@ -24,8 +53,7 @@ and open the template in the editor.
 }
 
 #bg {
-    background-image: url("/assets/pictures/nasdaq_studio.jpg");
-    height:100%;
+    
 }
 
 div#content {
@@ -34,5 +62,6 @@ div#content {
     margin: 0 auto;
     opacity: 0.9;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 7%;
+    vertical-align: middle;
 }

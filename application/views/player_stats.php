@@ -2,20 +2,27 @@
     <h1>
         Player Profiles
     </h1>
-    <div>
-        <form class="ajax-form" role="forms" action="../forms/player_stats_dropdown" method="post">  
-            <select name="players" id="players">
-                {dropdown}
-            </select>
-            <button type="submit" class="btn btn-default" id="login-btn">Go to player profile</button>
-        </form>
+    <div class="row">
+        <div class="dropdown dropdown-menu-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Check out other Players
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {dropdownoptions}
+            </ul>
+        </div>
     </div>
-    <h3>
-        Recent Activity for {player}
-    </h3>
-    {act_table}
-    <h3>
-        Current Holdings for {player}
-    </h3>
-    {holding_table}
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Recent Activity for {player}</h3>
+            <div class="table-responsive">
+                {act_table}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h3>Current Holdings for {player}</h3>
+            <div class="table-responsive">
+                {holding_table}
+            </div>
+        </div>
+    </div>
 </div>

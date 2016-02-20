@@ -14,8 +14,7 @@ class Players extends CI_Model{
     
     function all()
     {
-        $this->db->order_by("player", "desc"); // change "player" back to "id" in assign 2
-        $query = $this->db->get('players');
+        $query = $this->db->query('SELECT Player, Cash FROM players');
         return $query->result_array();
     }
     

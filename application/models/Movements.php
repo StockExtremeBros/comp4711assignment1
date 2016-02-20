@@ -20,7 +20,7 @@ class Movements extends CI_Model{
     
     function getStockMovements($code)
     {
-        $sql = "SELECT * FROM movements WHERE Code = ?";
+        $sql = "SELECT * FROM movements WHERE Code = ? ORDER BY DateTime DESC";
         $query = $this->db->query($sql, array($code));
         
         return $query->result();

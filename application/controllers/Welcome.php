@@ -48,26 +48,19 @@ class Welcome extends Application {
     public function populate_stocks()
     {
         // /stockhistory/{Name}
-        $stocks = $this->stocks->all();
-        
-        foreach ($stocks as $key => $s)
-        {
-            unset($s['Code']);
-            unset($s['Category']);
-            $stocks[$key] = $s;
-        }
+        $stocks = $this->stocks->getStockNameValue();
         
         $this->load->library('table');
         $tabletemp = array(
-            'table_open'        => '<table class="stock-summary table table-striped table-hover">',
-            'heading_row_start' => '<tr>',
-            'row_start'         => '<tr class="stock-summary-row">',
+            'table_open'            => '<table class="stock-summary table table-striped table-hover text-center">',
+            'heading_row_start'     => '<tr>',
+            'row_start'             => '<tr class="stock-summary-row">',
             'row_alt_start'         => '<tr class="stock-summary-row">',
             'heading_cell_start'    => '<th class="cell">',
             'heading_cell_end'      => '</th>'
         );
         $this->table->set_template($tabletemp);
-        
+
         $this->table->set_heading('Stock', 'Current Stock Value');
         $this->data['stockoverview'] = $this->table->generate($stocks);
     }
