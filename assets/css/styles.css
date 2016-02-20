@@ -27,6 +27,16 @@ ul.dropdown-menu {
     text-align: center;
 }
 
+h3 {
+    color:whitesmoke;
+    background-color: #1F1010;
+}
+
+th {
+    background-color: #4F4646;
+    color:whitesmoke;
+}
+
 .footer {
     position: fixed;
     bottom: 0px;
