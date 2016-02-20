@@ -24,21 +24,30 @@ Micah Willems - Team member
 WORK BREAKDOWN
 **************
 
-Database - Tyler
+==============
+Task Division:
+==============
+Database Setup- Tyler
 
-Player stats - Gabriella (done?)
+Player stats - Gabriella
 
-Stock stats - Micah
+Stock stats - Micah / Tyler
 
-Dependencies - Gabriella (done)
+Stock History - Tyler
 
-Header (Navbar and title) - Tyler (done?)
+Dependencies - Gabriella
 
-Footer - Tyler (done)
+Header (Navbar and title) - Tyler
 
-Session Data - Micah (done)
+Footer - Tyler
+
+Session Data - Micah
 
 Homepage - Micah
+
+CSS Styling - Everyone
+
+**Note: Team members helped each other with tasks when needed.**
 
 ***************
 PROJECT FOLDERS

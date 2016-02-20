@@ -46,6 +46,7 @@ class StockHistory extends Application {
         $this->render();
     }
     
+    //Get the most recent stock that had a transaction.
     public function getMostRecentTransaction()
     {
         $recent = $this->transactions->getRecentStockTransaction();
@@ -61,6 +62,7 @@ class StockHistory extends Application {
         return $name;
     }
     
+    //Create the dropdrop button menu to navigate to other stocks
     public function populate_dropdown()
     {
         //fill dropdown with player names
@@ -76,6 +78,7 @@ class StockHistory extends Application {
         $this->data['dropdownoptions'] = $stocks;
     }
     
+    // Create the stock transaction table
     public function populate_trans($stock)
     {
         $stockdata = $this->stocks->getStockCodeFromName($stock);
@@ -111,6 +114,7 @@ class StockHistory extends Application {
         $this->data['trans_table'] = $this->table->generate($rows);
     }
     
+    //Create the stock movement table.
     public function populate_move($stock)
     {
         $stockdata = $this->stocks->getStockCodeFromName($stock);
