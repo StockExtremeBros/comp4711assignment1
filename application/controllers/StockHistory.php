@@ -7,16 +7,14 @@ class StockHistory extends Application {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
+	 * 		http://localhost:####/stockhistory/$stock
+	 * This controller does not require the $stock variable after the
+         * address however, it will initialize to the most recent stock
+         * involved in a transaction. Otherwise it will initialize to the
+         * stock specified.
 	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 * In addition, this cannot be accessed unless the user is logged
+         * in.
 	 */
     public function index($stock = null)
     {
@@ -34,29 +32,14 @@ class StockHistory extends Application {
                 $stock = $this->getMostRecentTransaction();                
             }
             
+            //force the stock to adhere to the naming convention of only the
+            //first letter being an upper-case. 
             $stock = ucfirst(strtolower($stock));
 
             $this->data['pagebody'] =  'stockhistory';
             $this->data['stock'] = $stock;
-            //fill dropdown with player names
-            $allStocks = $this->stocks->getStockNames();
-  
-            $stocks = '';
-            foreach($allStocks as $row)
-            { 
-                $stocks .= '<li><a href="/stockhistory/'.$row->Name.'">'.$row->Name.'</a></li>';
-                //redirect(base_url()."stockhistory/".$stock);
-                //$stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
-            }
-            $this->data['dropdownoptions'] = $stocks;
-        
-            //Create the Transaction table for the stock
-            $stockTrans = $this->transactions->getStockTransaction($stock);
-            if($stock == null)
-            {
-                $stock = 'Gold';
-            }
-        
+            
+            $this->populate_dropdown();
             $this->populate_trans($stock);
             $this->populate_move($stock);
         }
@@ -78,13 +61,25 @@ class StockHistory extends Application {
         return $name;
     }
     
+    public function populate_dropdown()
+    {
+        //fill dropdown with player names
+        $allStocks = $this->stocks->getStockNames();
+
+        $stocks = '';
+        foreach($allStocks as $row)
+        { 
+            $stocks .= '<li><a href="/stockhistory/'.$row->Name.'">'.$row->Name.'</a></li>';
+            //redirect(base_url()."stockhistory/".$stock);
+            //$stocks .= '<option value="'.$row->Name.'">'.$row->Name.'</option>';
+        }
+        $this->data['dropdownoptions'] = $stocks;
+    }
+    
     public function populate_trans($stock)
     {
         $stockdata = $this->stocks->getStockCodeFromName($stock);
-        
-        $code = $stockdata['Code'];
-        
-        $stockTrans = $this->transactions->getStockTransaction($code);
+        $stockTrans = $this->transactions->getStockTransaction($stockdata['Code']);
 
         if(empty($stockTrans))
         {
@@ -119,10 +114,7 @@ class StockHistory extends Application {
     public function populate_move($stock)
     {
         $stockdata = $this->stocks->getStockCodeFromName($stock);
-        
-        $code = $stockdata['Code'];
-
-        $stockmoves = $this->movements->getStockMovements($code);
+        $stockmoves = $this->movements->getStockMovements($stockdata['Code']);
         
         if(empty($stockmoves))
         {
@@ -151,6 +143,5 @@ class StockHistory extends Application {
         $this->table->set_heading('Action', 'Amount', 'Date Time');
         $rows = $this->table->make_columns($cells, 1);
         $this->data['move_table'] = $this->table->generate($rows);
-        
     }
 }

@@ -11,6 +11,7 @@ class Movements extends CI_Model{
         parent::__construct();
     }
     
+    //Grab all the information from the movements table.
     function all()
     {
         $this->db->order_by("id", "desc");
@@ -18,6 +19,7 @@ class Movements extends CI_Model{
         return $query->result_array();
     }
     
+    //Get all the Stock movements from a specific code number.
     function getStockMovements($code)
     {
         $sql = "SELECT * FROM movements WHERE Code = ? ORDER BY DateTime DESC";

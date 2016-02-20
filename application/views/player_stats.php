@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <h1>
         Player Profiles
     </h1>

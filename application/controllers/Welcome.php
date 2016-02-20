@@ -12,16 +12,10 @@ class Welcome extends Application {
      * Index Page for this controller.
      *
      * Maps to the following URL
-     * 		http://example.com/index.php/welcome
+     * 		http://localhost:####/welcome
      *	- or -
-     * 		http://example.com/index.php/welcome/index
-     *	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
+     * This is the default controller in config/routes.php, it's 
+     * displayed at http://localhost:####/
      */
     public function index()
     {
@@ -95,6 +89,9 @@ class Welcome extends Application {
         $this->data['playeroverview'] = $this->table->generate($players);
     }
     
+    /*
+     * Create the player's equity uses the player's transactions in stocks.
+     */
     function get_player_equity($player)
     {
         $allStocks = $this->stocks->all();
