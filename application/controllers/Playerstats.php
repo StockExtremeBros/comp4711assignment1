@@ -92,7 +92,8 @@ class PlayerStats extends Application{
         } else {
             foreach($curr_player_trans as $row)
             { 
-                $this->table->add_row($row->DateTime, $row->Stock, $row->Trans, $row->Quantity);
+                $stock = $this->stocks->getStockNameFromCode($row->Stock);
+                $this->table->add_row($row->DateTime, $stock[0]['Name'], $row->Trans, $row->Quantity);
             }
         }
         
@@ -127,7 +128,8 @@ class PlayerStats extends Application{
                     $total -= $trans->Quantity;
                 }
             }
-            $this->table->add_row($row->Code, $total);
+            $stock = $this->stocks->getStockNameFromCode($row->Code);
+            $this->table->add_row($stock[0]['Name'], $total);
         }
         
         $this->data['holding_table'] = $this->table->generate();
