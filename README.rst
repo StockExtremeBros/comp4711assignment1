@@ -62,4 +62,4 @@ LICENSE
 *******
 
 Please see the `license
-agreement <https://codeigniter.com/userguide3/license.html>`_
+agreement <https://codeigniter.com/userguide3/license.html>

@@ -1,0 +1,119 @@
+Tyler 	- restructure Database
+Micah 	- User Login and Authentication (TOKENS)
+Micah 	- File uploading for profile pictures
+		- Individual stocks should be clickable
+Micah	- User registration
+		- if you sit out for two games, you have to re-register
+		- Game State
+			= States (0/1/2/3/4 : closed/setup/ready/open/over)
+			= site.com/status  --> shows the game's current status
+			= ready is 15 seconds
+		-Getting Game Data
+			= site.com/data/WHICH
+				WHICH = transaction / movements / stocks
+		-Your Dashboard
+			= show current players (avatar / equity / name)
+			= show more transactions?
+		-Your Stocks Page
+			= active stocks
+			= show movements/transactions
+		-Your Portfolio Page
+			= List of users
+			= show transactions
+			= show recent splits/delistings
+		- Player Login
+			= Login for real
+			= player registration
+		- Player Adminstration
+			= Provide authentication.
+			= admin / player
+			= admin login info is in readme.txt
+		- Agent Registration
+			= Register the player
+			= If game is ready / open, 
+				send POST request to site.com/register with (team / teamname / password of the day)
+			= game responds with team code and auth token
+			= registration is good for two rounds before user is dumped
+		- Agent Participation
+			= react to player transactions
+			= split stocks correctly
+			= dead stocks stay dead
+			= adjust player data after stock dead or stock split
+Gab   	- Buying stock
+			= Buying Stock (POST with: team code / auth token / playername / stockcode / quantity)
+			= Completing a good stock transaction (XML document return with: teamID / playername / stockcode / quantityStocks / certificateNumber)
+			= Transaction returns with receipt (cash spent + certificate) OR ERROR
+Gab   	- Selling stock
+			= POST to Sell controller (teamcode / auth token / playername / stockcode / quantity / certificateNumber)
+			= Good transaction, NEW certificate number for stocks and cash
+			= If all stocks sold, kill certificate instead
+			= Errors will be printed.
+		-Data
+			= Store temporary Player and game data
+			= Game data resets every round
+			= Game data includes (Player / stock / ?auth token? / quantity / teamID / certificate(XML) / transactions
+			= Link tables together (Primary keys + Foreign keys)
+			= Avatars for players (pictures)
+		-Media
+			= avatars for players
+			Micah = file upload avatars
+		- Agent Management
+			= download links for downloading the stock data from the server
+			= monitor the server for the game status
+			= set any defaults for app like the frequency of state checking or transaction tracking
+		
+		
+
+<?php
+/*---------------------------------------------------------------------------------------
+--  Source File:    grab_newest_user.php - PHP file to grab the latest entry from the
+--                                         location
+--
+--  Date:         March 19, 2016
+--
+--  Revisions:    March 20, 2016 (Tyler Trepanier) 
+--                    Final integration, allowed for continuous updates
+--
+--  Designer:     Tyler Trepanier
+--
+--  Programmer:   Tyler Trepanier
+--
+--  Notes: Single PHP file which grabs all clients and returns it to the
+--  mapcalls.js function via JSON.
+---------------------------------------------------------------------------------------*/
+    
+    $servername = "localhost";
+    $username = "root";
+    $password = "c0mmaudi0";
+    $my_db = "android_gps";
+    $arr = [];
+    
+    try {
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $my_db);
+        
+        // Check connection
+        if ($conn->connect_error) {
+            die('Connect Error (' . $conn->connect_errno . ') '
+            . $conn->connect_error);
+        }
+        
+        $sql = "SELECT  u.username, l.rec_time, l.latitude, l.longitude, l.dev_name, l.ip_address 
+                FROM    location l
+                INNER JOIN    users u
+                ON u.user_id=l.user_id";        
+        
+        if ($result = $conn->query($sql)) {
+            while($r = $result->fetch_array(MYSQLI_NUM)) {
+                $arr[] = $r;
+            }
+        }
+        
+        $conn->close();
+        
+        } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";    
+    }
+    
+    echo json_encode($arr);
+?>
