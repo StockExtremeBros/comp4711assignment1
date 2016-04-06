@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class StockHistory extends Application {
+class Stockhistory extends Application {
 
 	/**
 	 * Index Page for this controller.
