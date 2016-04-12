@@ -1,5 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+define('GAME_CLOSED', 0);
+define('GAME_SETUP',  1);
+define('GAME_READY',  2);
+define('GAME_OPEN',   3);
+define('GAME_OVER',   4);
 
 /*
 |--------------------------------------------------------------------------
