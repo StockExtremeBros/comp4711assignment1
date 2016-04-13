@@ -5,7 +5,7 @@ Micah 	- File uploading for profile pictures
 Micah	- User registration
 		- if you sit out for two games, you have to re-register
 		- Game State
-			= States (0/1/2/3/4 : closed/setup/ready/open/over)
+			Tyler = States (0/1/2/3/4 : closed/setup/ready/open/over)
 			= site.com/status  --> shows the game's current status
 			= ready is 15 seconds
 		-Getting Game Data
@@ -55,7 +55,7 @@ Gab   	- Selling stock
 			= Link tables together (Primary keys + Foreign keys)
 			= Avatars for players (pictures)
 		-Media
-			= avatars for players
+			Micah = avatars for players
 			Micah = file upload avatars
 		- Agent Management
 			= download links for downloading the stock data from the server
