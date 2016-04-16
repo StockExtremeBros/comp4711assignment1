@@ -11,6 +11,9 @@
             </ul>
         </div>
     </div>
+    <div>
+        <h4>Current equity for {player}: {equity}</h4>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             <h3>Recent Activities for {player}</h3>
