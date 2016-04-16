@@ -42,7 +42,7 @@ class Stocks extends CI_Model{
     //Get all of the names of the stocks from the stocks table.
     function getStockNames()
     {
-        $this->db->order_by("id", "desc");
+        //$this->db->order_by("id", "desc");
         $query = $this->db->query('SELECT Name FROM stocks ORDER BY Name desc');
         return $query->result();
     }
