@@ -21,17 +21,73 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stocks`
+--
+
+DROP TABLE IF EXISTS `avatars`;
+DROP TABLE IF EXISTS `movements`;
+DROP TABLE IF EXISTS `transactions`;
+DROP TABLE IF EXISTS `stocks`;
+DROP TABLE IF EXISTS `players`;
+
+CREATE TABLE IF NOT EXISTS `stocks` (
+  `Code` varchar(4) DEFAULT NULL,
+  `Name` varchar(10) DEFAULT NULL,
+  `Category` varchar(1) DEFAULT NULL,
+  `Value` int(3) DEFAULT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Dumping data for table `stocks`
+--
+
+INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
+('BOND', 'Bonds', 'B', 66),
+('GOLD', 'Gold', 'B', 110),
+('GRAN', 'Grain', 'B', 113),
+('IND', 'Industrial', 'B', 39),
+('OIL', 'Oil', 'B', 52),
+('TECH', 'Tech', 'B', 37);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `players`
+--
+
+CREATE TABLE IF NOT EXISTS `players` (
+  `Player` varchar(6) DEFAULT NULL,
+  `Cash` int(4) DEFAULT NULL,
+  PRIMARY KEY (`Player`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `players` (`Player`, `Cash`) VALUES
+('Mickey', 1000),
+('Donald', 3000),
+('George', 2000),
+('Henry', 2500);
 
 --
 -- Table structure for table `movements`
 --
 
-DROP TABLE IF EXISTS `movements`;
+
 CREATE TABLE IF NOT EXISTS `movements` (
   `Datetime` varchar(19) DEFAULT NULL,
   `Code` varchar(4) DEFAULT NULL,
   `Action` varchar(4) DEFAULT NULL,
-  `Amount` int(2) DEFAULT NULL
+  `Amount` int(2) DEFAULT NULL,
+  FOREIGN KEY (`Code`)
+    REFERENCES `stocks`(`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -72,64 +128,20 @@ INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `players`
---
-
-DROP TABLE IF EXISTS `players`;
-CREATE TABLE IF NOT EXISTS `players` (
-  `Player` varchar(6) DEFAULT NULL,
-  `Cash` int(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `players`
---
-
-INSERT INTO `players` (`Player`, `Cash`) VALUES
-('Mickey', 1000),
-('Donald', 3000),
-('George', 2000),
-('Henry', 2500);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stocks`
---
-
-DROP TABLE IF EXISTS `stocks`;
-CREATE TABLE IF NOT EXISTS `stocks` (
-  `Code` varchar(4) DEFAULT NULL,
-  `Name` varchar(10) DEFAULT NULL,
-  `Category` varchar(1) DEFAULT NULL,
-  `Value` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `stocks`
---
-
-INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
-('BOND', 'Bonds', 'B', 66),
-('GOLD', 'Gold', 'B', 110),
-('GRAN', 'Grain', 'B', 113),
-('IND', 'Industrial', 'B', 39),
-('OIL', 'Oil', 'B', 52),
-('TECH', 'Tech', 'B', 37);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `transactions`
 --
 
-DROP TABLE IF EXISTS `transactions`;
+
 CREATE TABLE IF NOT EXISTS `transactions` (
   `DateTime` varchar(19) DEFAULT NULL,
   `Player` varchar(6) DEFAULT NULL,
   `Stock` varchar(4) DEFAULT NULL,
   `Trans` varchar(4) DEFAULT NULL,
-  `Quantity` int(4) DEFAULT NULL
+  `Quantity` int(4) DEFAULT NULL,
+  FOREIGN KEY (`Player`)
+    REFERENCES `players`(`Player`),
+  FOREIGN KEY (`Stock`)
+    REFERENCES `stocks`(`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -159,7 +171,7 @@ INSERT INTO `transactions` (`DateTime`, `Player`, `Stock`, `Trans`, `Quantity`) 
 -- Table structure for table `avatars`
 --
 
-DROP TABLE IF EXISTS `avatars`;
+
 CREATE TABLE IF NOT EXISTS `avatars` (
   `Player`  varchar(6)    NOT NULL,
   `Path`    varchar(256)  NOT NULL,
