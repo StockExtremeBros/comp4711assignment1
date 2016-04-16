@@ -38,6 +38,7 @@ class StockHistory extends Application {
 
             $this->data['pagebody'] =  'stockhistory';
             $this->data['stock'] = $stock;
+            $this->data['value'] = $this->stocks->getStockValueByName($stock);
             
             $this->populate_dropdown();
             $this->populate_trans($stock);

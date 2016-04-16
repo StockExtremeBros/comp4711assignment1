@@ -11,7 +11,9 @@
             </ul>
         </div>
     </div>
-    
+    <div>
+        <h4>Current value for {stock}: {value}</h4>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             <h3>Recent Transactions</h3>
