@@ -1,6 +1,5 @@
 $(function() {
-        console.log(window.location.pathname);
-    // Ensure we're at the homepage
+    
     if (window.location.pathname === '/')
     {
         // Onclick for each stock summary row takes the text
@@ -20,24 +19,69 @@ $(function() {
         });
     } else if (window.location.pathname === '/register')
     {
-        var valid = 0;
-        $('.btn-submit').prop('disabled', true);
         $('input').on('blur', function() {
             if (this.value === "" || this.value === null) {
-                $(this).addClass("error");
-                
-            }
-            switch(this.id) {
-                case "username":
-                    break;
-                case "email":
-                    break;
-                case "password":
-                    break;
-                case "password_confirm":
-                    break;
-                default:
-                    break;
+                $(this).parents('.form-group').addClass('has-error');
+                $(this).parents('.form-group').removeClass('passed-valid');
+                $(this).next('p').html('Must not be blank');
+            } else {
+                switch(this.id) {
+                    case "username":
+                        if (this.value.length < 5) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Minimum 5 characters');
+                        } else {
+                            $(this).parents('.form-group').removeClass('has-error');
+                            $(this).parents('.form-group').addClass('passed-valid');
+                            $(this).next('p').html('');
+                        }
+                        break;
+                    case "email":
+                        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        if (regex.test(this.value) === false) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Not a valid email address');
+                        } else {
+                            $(this).parents('.form-group').removeClass('has-error');
+                            $(this).parents('.form-group').addClass('passed-valid');
+                            $(this).next('p').html('');
+                        }
+                        break;
+                    case "password":
+                        if (this.value.length < 5) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Minimum 5 characters');
+                        } else {
+                            $(this).parents('.form-group').removeClass('has-error');
+                            $(this).parents('.form-group').addClass('passed-valid');
+                            $(this).next('p').html('');
+                        }
+                        break;
+                    case "password-confirm":
+                        if (this.value.length < 5) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Minimum 5 characters');
+                        } else {
+                            $(this).parents('.form-group').removeClass('has-error');
+                            $(this).parents('.form-group').addClass('passed-valid');
+                            $(this).next('p').html('');
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                console.log($('.passed-valid').length);
+                if ($('.passed-valid').length === 4) {
+                    $('#btn-submit').prop('disabled', false);
+                    $('#btn-submit').addClass('btn-success');
+                } else {
+                    $('#btn-submit').prop('disabled', true);
+                    $('#btn-submit').removeClass('btn-success');
+                }
             }
         });
     }
