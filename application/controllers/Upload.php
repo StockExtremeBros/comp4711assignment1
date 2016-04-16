@@ -16,14 +16,12 @@ class Upload extends Application {
         $this->load->helper('url');
         
         //Set the message for the first time
-        $data = array('msg' => "Upload File");
-
-        $data['upload_data'] = '';
+        $data = array('msg'         => "uploads to the assets/pictures/avatars/ folder",
+                      'upload_data' => "No uploaded file data yet.",
+                      'file_name'   => "");
 
         //load the view/upload.php with $data
-        $this->load->view('_upload_form', $data);
-    
-		
+        $this->parser->parse('_upload_form', $data);
     }
 
 

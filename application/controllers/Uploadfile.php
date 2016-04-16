@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Uploadfile extends CI_Controller{
+class Uploadfile extends Application {
 	
     function __construct()
     {
@@ -29,22 +29,28 @@ class Uploadfile extends CI_Controller{
 
         $this->upload->set_allowed_types('*');
 
-        $data['upload_data'] = '';
+        $data['msg'] = 'This is a message';
+        $data['upload_data'] = 'uploads to the assets/pictures/avatars/ folder.';
+
+        // CHECK THE DATABASE HERE TO SEE IF WE HAVE A NEW PLAYER OR WE ARE REPLACING AN IMAGE
+        // DO WE HANDLE DELETION? Easy answer, no.
 
         //if not successful, set the error message
         if (!$this->upload->do_upload('userfile')) 
         {
-            $data = array('msg' => $this->upload->display_errors());
+            $data['msg'] = $this->upload->display_errors();
+            $data['file_name'] = "";
         } 
         else 
         { //else, set the success message
-            $data = array('msg' => "Upload success!");
-            $data['upload_data'] = $this->upload->data();
+            $data['msg'] = "Upload success!";
+            $data['file_name'] = $this->upload->data()['file_name'];
             
+            // Contents of the uploading stuff to be used later.
+            var_dump($this->upload->data());
         }
 
-        //load the view/upload.php
-        $this->load->view('_upload_form', $data);
+        $this->parser->parse('_upload_form', $data);
     }
 
 }

@@ -6,8 +6,10 @@
         {upload_data}
     </code>
 
-    <img scr="{upload_data['full_path']}">
-
+    <!-- CAN'T GET THE PICTURE TO BLOODY SHOW -->
+    {file_name}
+    <img scr="/assets/pictures/avatars/Wifi-1-icon.png"/>
+    
     <?php echo form_open_multipart('uploadfile/upload_it');?>
 
     <input type="file" name="userfile" size="20" />

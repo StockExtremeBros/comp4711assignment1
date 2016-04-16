@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class Avatars extends CI_Model{
+class Avatar extends CI_Model{
     /*Attributes:
      * Player ==> Primary/Foreign key       = player name
      * Path                                 = absolute file path
