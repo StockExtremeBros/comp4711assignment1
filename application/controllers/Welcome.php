@@ -105,7 +105,8 @@ class Welcome extends Application {
                 if ($trans->Trans == 'buy')
                 {
                     $total += $trans->Quantity;
-                }else if ($trans->Trans == 'sell')
+                }
+                else if ($trans->Trans == 'sell')
                 {
                     $total -= $trans->Quantity;
                 }
