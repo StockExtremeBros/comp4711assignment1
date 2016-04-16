@@ -75,4 +75,16 @@ class Stocks extends CI_Model{
         
         return $query->result_array();
     }
+    
+    function getStockValueByName($name)
+    {
+        $sql = "SELECT Value FROM stocks where Name = ? LIMIT 1";
+        $query = $this->db->query($sql, array($name));
+        
+        foreach($query->result_array() as $row)
+        {
+            return $row['Value'];
+        }
+        return null;
+    }
 }
