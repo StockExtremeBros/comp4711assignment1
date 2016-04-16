@@ -63,7 +63,9 @@ Gab   	- Selling stock
 			= set any defaults for app like the frequency of state checking or transaction tracking
 		
 		
-
+fgetcsv()
+		
+		
 <?php
 /*---------------------------------------------------------------------------------------
 --  Source File:    grab_newest_user.php - PHP file to grab the latest entry from the
