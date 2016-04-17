@@ -71,10 +71,11 @@ class Stocks extends CI_Model{
                 'Value' => $stock["value"],
                 'Category' => $stock["category"]
                 );
-                $this->db->insert('stocks', $data);
+                
+                $this->db->where('Code', $stock["code"]);
+                $this->db->update('stocks', $data); 
             }
-            $this->db->where('Code', $stock["code"]);
-            $this->db->update('stocks', $data); 
+            
         }
         
     }
