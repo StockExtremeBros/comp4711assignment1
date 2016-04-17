@@ -66,7 +66,7 @@ class PlayerStats extends Application{
         $players = '';
         foreach($allPlayers as $row)
         { 
-             $players .= '<li><a href="/profiles/'.$row->player.'">'.$row->player.'</a></li>';
+             $players .= '<li><a href="/profiles/'.$row->Player.'">'.$row->Player.'</a></li>';
         }
         $this->data['dropdownoptions'] = $players;
     }
