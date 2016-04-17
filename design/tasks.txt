@@ -52,11 +52,11 @@ Gab   	- Selling stock
 			= Store temporary Player and game data
 			= Game data resets every round
 			= Game data includes (Player / stock / ?auth token? / quantity / teamID / certificate(XML) / transactions
-			= Link tables together (Primary keys + Foreign keys)
-			= Avatars for players (pictures)
+			Tyler DONE= Link tables together (Primary keys + Foreign keys)
+			Tyler DONE = Avatars for players (pictures)
 		-Media
-			Micah = avatars for players
-			Micah = file upload avatars
+			Tyler Done = avatars for players
+			Tyler Done = file upload avatars
 		- Agent Management
 			= download links for downloading the stock data from the server
 			= monitor the server for the game status
