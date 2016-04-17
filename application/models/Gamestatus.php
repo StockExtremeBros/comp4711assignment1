@@ -23,18 +23,11 @@ class Gamestatus extends CI_Model{
     function __construct() {
         parent::__construct();
         
-        $status['round'] = 0;
-        $status['state'] = GAME_CLOSED;
-        $status['current'] = 'closed';
-        $status['duration'] = 0;
-        $status['upcoming'] = 'closed';
-        $status['round'] = '00:00:00'; 
-        $status['now'] = '00:00:00';
-        $status['countdown'] = 0; 
-        
         try
         {
             $website = file_get_contents("http://bsx.jlparry.com/status");
+            $password = 'tuesday';
+            $website.$password;
             $this->xml = simplexml_load_string($website);
             
         } catch(HttpException $e) {
@@ -46,16 +39,34 @@ class Gamestatus extends CI_Model{
         
         if(!empty($this->xml))
         {
-            isset($this->xml->round) ? $status['round'] = $this->xml->round[0] : $status['round'] = 0;
-            isset($this->xml->state) ? $status['state'] = $this->xml->state[0] : $status['state'] = GAME_CLOSED;
-            isset($this->xml->current) ? $status['current'] = $this->xml->current[0] : 'closed';
-            isset($this->xml->duration) ? $status['duration'] = $this->xml->duration[0] : $status['duration'] = 0;
-            isset($this->xml->upcoming) ? $status['upcoming'] = $this->xml->upcoming[0] : $status['upcoming'] = 'closed';
-            isset($this->xml->alarm) ? $status['round'] = $this->xml->alarm[0] : $status['round'] = '00:00:00'; 
-            isset($this->xml->now) ? $status['now'] = $this->xml->now[0] : $status['now'] = '00:00:00';
-            isset($this->xml->countdown) ? $status['countdown'] = $this->xml->countdown[0] : $status['countdown'] = 0; 
+            isset($this->xml->round) ? $this->status['round'] = $this->xml->round[0] : 0;
+            isset($this->xml->state) ? $this->status['state'] = $this->xml->state[0] : 0;
+            isset($this->xml->current) ? $this->status['current'] = $this->xml->current[0] : 0;
+            isset($this->xml->duration) ? $this->status['duration'] = $this->xml->duration[0] : 0;
+            isset($this->xml->upcoming) ? $this->status['upcoming'] = $this->xml->upcoming[0] : 0;
+            isset($this->xml->alarm) ? $this->status['round'] = $this->xml->alarm[0] : 0; 
+            isset($this->xml->now) ? $this->status['now'] = $this->xml->now[0] : 0;
+            isset($this->xml->countdown) ? $this->status['countdown'] = $this->xml->countdown[0] : 0; 
         }
         
-        var_dump($status);
+        //var_dump($status);
+    }
+    
+    function getCurrentStatus()
+    {
+        return $this->status;
+    }
+    
+    //tates (0/1/2/3/4 : closed/setup/ready/open/over)
+    function getGameState()
+    {
+        if(isset($this->status['state']))
+        {
+            return $this->status['state'];
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

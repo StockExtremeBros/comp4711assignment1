@@ -8,7 +8,16 @@ class Uploadfile extends Application {
         $this->load->helper(array('form', 'url'));
     }
 
-
+    function default_pic()
+    {
+        $this->load->model('avatar');
+        $this->load->helper('form');
+        $player = $this->data['current_user'];    
+        $this->avatar->uploadDefault($player);
+        
+        redirect(base_url());
+    }
+    
     function upload_it() 
     {
         $this->load->model('avatar');
@@ -32,33 +41,22 @@ class Uploadfile extends Application {
 
         $this->upload->set_allowed_types('*');
 
-        $this->data['msg'] = 'This is a message';
-        $this->data['upload_data'] = 'uploads to the assets/pictures/avatars/ folder.';
-
         //if not successful, set the error message        
         if (!$this->upload->do_upload('userfile')) 
         {
-            $this->data['msg'] = $this->upload->display_errors();
-            $this->data['file_name'] = "";
+            redirect(base_url().'/upload');
         } 
         else 
-        { //else, set the success message
-            $this->data['msg'] = "Upload success!";
-            $this->data['file_name'] = strtolower($this->upload->data()['file_name']);
+        {
             
-            $file_name = $this->data['file_name'];
-            $path = '/assets/pictures/avatars/'.$this->data['file_name'];
+            $file_name = strtolower($this->upload->data()['file_name']);
+            $path = '/assets/pictures/avatars/'.$file_name;
             $player = $this->data['current_user'];
             
             $this->avatar->uploadNewPlayer($player, $path, $file_name);
             
-            $this->create_avatar($player);
-            // Contents of the uploading stuff to be used later.
-            //var_dump($this->upload->data());
+            redirect(base_url());
         }
-
-        $this->data['pagebody'] = '_upload_form';
-        $this->render();
     }
 
 }

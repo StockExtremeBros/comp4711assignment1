@@ -82,3 +82,10 @@ div#content {
     max-width: 30px; 
     max-height: 30px;
 }
+
+.upload_form
+{
+    display: inline-block;
+    text-align: center;
+    
+}

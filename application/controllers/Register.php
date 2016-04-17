@@ -35,12 +35,12 @@ class Register extends Application {
         if ($this->players->addPlayer($username, $password))
         {
             $this->session->set_userdata('current_user', $username);
-            redirect(base_url());
+            redirect(base_url('upload'));
         }
         else
         {
             $this->session->set_userdata('register_failed', true);
-            redirect(base_url() . '/register');
+            redirect(base_url('register'));
         }
     }
 }
