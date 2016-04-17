@@ -46,6 +46,24 @@ function process_buy_request($result)
     }
 }
 
+function get_token()
+{
+    $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
+    $xml = simplexml_load_string($website);
+    
+    if (isset($xml->error))
+    {
+        //error
+        return $xml->error->message;
+    }
+    else
+    {
+        $agent = $xml->agent;
+        return $agent->token;
+    }
+        
+}
+
 //http://bsx.jlparry.com/sell?token=3a3b991110d18050a790d4a865e1daa0&player=gc&team=o03&stock=FBN&quantity=2&certificate=95a0f
 if (! function_exists('sell_request'))
 {

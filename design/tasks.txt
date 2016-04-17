@@ -21,8 +21,8 @@ Micah	- User registration
 			= List of users
 			= show transactions
 			= show recent splits/delistings
-		- Player Login
-			= Login for real
+		DONE- Player Login
+		DONE	= Login for real
 			= player registration
 		- Player Adminstration
 			= Provide authentication.
