@@ -27,6 +27,8 @@ class GamePlay extends Application{
             
             $this->load->library('table');
             
+            $status = $this->gamestatus->getGameState();
+
             get_stocks();
         
             $this->data['pagebody'] = 'game_play';
