@@ -53,4 +53,15 @@ class Avatar extends CI_Model{
         $this->db->insert('avatars', $data); 
     }
     
+    function uploadDefault($player)
+    {
+        $data = array(
+            'player' => $player,
+            'path' => "/assets/pictures/avatars/default_user.jpg",
+            'image' => "default_user"
+         );
+        $this->db->delete('avatars', array('player' => $player)); 
+        $this->db->insert('avatars', $data); 
+    }
+    
 }

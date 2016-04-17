@@ -45,9 +45,11 @@ class Uploadfile extends Application {
         { //else, set the success message
             $this->data['msg'] = "Upload success!";
             $this->data['file_name'] = strtolower($this->upload->data()['file_name']);
+            
             $file_name = $this->data['file_name'];
             $path = '/assets/pictures/avatars/'.$this->data['file_name'];
             $player = $this->data['current_user'];
+            
             $this->avatar->uploadNewPlayer($player, $path, $file_name);
             
             $this->create_avatar($player);

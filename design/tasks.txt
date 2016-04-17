@@ -53,7 +53,7 @@ Gab   	- Selling stock
 			= Game data resets every round
 			= Game data includes (Player / stock / ?auth token? / quantity / teamID / certificate(XML) / transactions
 			= Link tables together (Primary keys + Foreign keys)
-			= Avatars for players (pictures)
+			Tyler DONE = Avatars for players (pictures)
 		-Media
 			Micah = avatars for players
 			Micah = file upload avatars
