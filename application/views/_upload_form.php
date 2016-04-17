@@ -6,17 +6,15 @@
         {upload_data}
     </code>
 
-    <!-- CAN'T GET THE PICTURE TO BLOODY SHOW -->
-    {file_name}
-    <img scr="/assets/pictures/avatars/Wifi-1-icon.png"/>
+    {avatar}
     
-    <?php echo form_open_multipart('uploadfile/upload_it');?>
+    <form action="uploadfile/upload_it" enctype="multipart/form-data" method="post" accept-charset="utf-8">
 
-    <input type="file" name="userfile" size="20" />
+        <input type="file" name="userfile" size="20" />
 
-    <br /><br />
+        <br /><br />
 
-    <input type="submit" value="upload" />
+        <input type="submit" value="upload" />
 
     </form>
 </div>
