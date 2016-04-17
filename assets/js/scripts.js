@@ -19,7 +19,7 @@ $(function() {
         });
     } else if (window.location.pathname === '/register')
     {
-        $('input').on('blur', function() {
+        $('#content input').on('blur', function() {
             if (this.value === "" || this.value === null) {
                 $(this).parents('.form-group').addClass('has-error');
                 $(this).parents('.form-group').removeClass('passed-valid');
@@ -37,23 +37,16 @@ $(function() {
                             $(this).next('p').html('');
                         }
                         break;
-                    case "email":
-                        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                        if (regex.test(this.value) === false) {
-                            $(this).parents('.form-group').addClass('has-error');
-                            $(this).parents('.form-group').removeClass('passed-valid');
-                            $(this).next('p').html('Not a valid email address');
-                        } else {
-                            $(this).parents('.form-group').removeClass('has-error');
-                            $(this).parents('.form-group').addClass('passed-valid');
-                            $(this).next('p').html('');
-                        }
-                        break;
                     case "password":
                         if (this.value.length < 5) {
                             $(this).parents('.form-group').addClass('has-error');
                             $(this).parents('.form-group').removeClass('passed-valid');
                             $(this).next('p').html('Minimum 5 characters');
+                        } else if ($(this).val() !== $('#password-confirm').val()
+                                && $('#password-confirm').parents('.form-group').hasClass('passed-valid')) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Passwords must match');
                         } else {
                             $(this).parents('.form-group').removeClass('has-error');
                             $(this).parents('.form-group').addClass('passed-valid');
@@ -65,6 +58,11 @@ $(function() {
                             $(this).parents('.form-group').addClass('has-error');
                             $(this).parents('.form-group').removeClass('passed-valid');
                             $(this).next('p').html('Minimum 5 characters');
+                        } else if ($(this).val() !== $('#password').val()
+                                && $('#password').parents('.form-group').hasClass('passed-valid')) {
+                            $(this).parents('.form-group').addClass('has-error');
+                            $(this).parents('.form-group').removeClass('passed-valid');
+                            $(this).next('p').html('Passwords must match');
                         } else {
                             $(this).parents('.form-group').removeClass('has-error');
                             $(this).parents('.form-group').addClass('passed-valid');
@@ -74,8 +72,7 @@ $(function() {
                     default:
                         break;
                 }
-                console.log($('.passed-valid').length);
-                if ($('.passed-valid').length === 4) {
+                if ($('.passed-valid').length === 3) {
                     $('#btn-submit').prop('disabled', false);
                     $('#btn-submit').addClass('btn-success');
                 } else {

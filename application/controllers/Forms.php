@@ -17,8 +17,16 @@ class Forms extends Application {
     {
         $this->load->library('session');
         $username = $this->input->post('username');
-        $this->session->set_userdata('current_user', $username);
-        redirect(base_url());
+        $password = $this->input->post('password');
+        if ($this->players->checkPassword($username, $password))
+        {
+            $this->session->set_userdata('current_user', $username);
+            redirect(base_url()); 
+        }
+        else
+        {
+            redirect(base_url());
+        }
     }
     
     /**

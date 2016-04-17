@@ -31,28 +31,16 @@ DROP TABLE IF EXISTS `avatars`;
 DROP TABLE IF EXISTS `movements`;
 DROP TABLE IF EXISTS `transactions`;
 DROP TABLE IF EXISTS `stocks`;
+DROP TABLE IF EXISTS `passwords`;
 DROP TABLE IF EXISTS `players`;
 
 CREATE TABLE IF NOT EXISTS `stocks` (
   `Code` varchar(4) DEFAULT NULL,
   `Name` varchar(10) DEFAULT NULL,
   `Category` varchar(1) DEFAULT NULL,
-  `Value` int(3) DEFAULT NULL,
+  `Value` int(3) DEFAULT 0,
   PRIMARY KEY (`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
--- Dumping data for table `stocks`
---
-
-INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
-('BOND', 'Bonds', 'B', 66),
-('GOLD', 'Gold', 'B', 110),
-('GRAN', 'Grain', 'B', 113),
-('IND', 'Industrial', 'B', 39),
-('OIL', 'Oil', 'B', 52),
-('TECH', 'Tech', 'B', 37);
 
 -- --------------------------------------------------------
 
@@ -61,7 +49,7 @@ INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `players` (
-  `Player` varchar(6) DEFAULT NULL,
+  `Player` varchar(20) DEFAULT NULL,
   `Cash` int(4) DEFAULT NULL,
   PRIMARY KEY (`Player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -71,10 +59,33 @@ CREATE TABLE IF NOT EXISTS `players` (
 --
 
 INSERT INTO `players` (`Player`, `Cash`) VALUES
-('Mickey', 1000),
-('Donald', 3000),
-('George', 2000),
-('Henry', 2500);
+('admin', 5000),
+('player', 5000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passwords`
+--
+
+CREATE TABLE IF NOT EXISTS `passwords` (
+  `Player` varchar(20) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Player`),
+  FOREIGN KEY (`Player`)
+    REFERENCES `players`(`Player`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `passwords` (`Player`, `Password`) VALUES
+('admin', '$2y$10$/XezEnPTJhJgyZqXFMrf6.iShSkv0aKrR2lRnRT/lmXGVWL0meL4.'),
+('player', '$2y$10$oGuvoKZagaatA.ubUfqC8eaKG1soWcjrZn1G8w3WkMcouRkgUKo4S');
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `movements`
@@ -85,45 +96,10 @@ CREATE TABLE IF NOT EXISTS `movements` (
   `Datetime` varchar(19) DEFAULT NULL,
   `Code` varchar(4) DEFAULT NULL,
   `Action` varchar(4) DEFAULT NULL,
-  `Amount` int(2) DEFAULT NULL,
+  `Amount` int(2) DEFAULT 0,
   FOREIGN KEY (`Code`)
     REFERENCES `stocks`(`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `movements`
---
-
-INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
-('2016.02.01-09:01:00', 'BOND', 'down', 5),
-('2016.02.01-09:01:02', 'IND', 'div', 5),
-('2016.02.01-09:01:04', 'OIL', 'down', 10),
-('2016.02.01-09:01:06', 'GOLD', 'div', 5),
-('2016.02.01-09:01:08', 'BOND', 'up', 20),
-('2016.02.01-09:01:10', 'GOLD', 'div', 5),
-('2016.02.01-09:01:12', 'GOLD', 'down', 20),
-('2016.02.01-09:01:14', 'IND', 'div', 10),
-('2016.02.01-09:01:16', 'OIL', 'up', 20),
-('2016.02.01-09:01:18', 'BOND', 'down', 5),
-('2016.02.01-09:01:20', 'BOND', 'up', 5),
-('2016.02.01-09:01:22', 'BOND', 'div', 20),
-('2016.02.01-09:01:24', 'BOND', 'div', 20),
-('2016.02.01-09:01:26', 'GOLD', 'div', 20),
-('2016.02.01-09:01:28', 'IND', 'up', 20),
-('2016.02.01-09:01:30', 'OIL', 'down', 20),
-('2016.02.01-09:01:32', 'GRAN', 'down', 20),
-('2016.02.01-09:01:34', 'BOND', 'up', 5),
-('2016.02.01-09:01:36', 'GOLD', 'down', 20),
-('2016.02.01-09:01:38', 'GOLD', 'down', 20),
-('2016.02.01-09:01:40', 'TECH', 'down', 20),
-('2016.02.01-09:01:42', 'TECH', 'up', 5),
-('2016.02.01-09:01:44', 'OIL', 'up', 20),
-('2016.02.01-09:01:46', 'BOND', 'up', 5),
-('2016.02.01-09:01:48', 'GOLD', 'div', 10),
-('2016.02.01-09:01:50', 'GOLD', 'down', 5),
-('2016.02.01-09:01:52', 'GOLD', 'up', 20),
-('2016.02.01-09:01:54', 'IND', 'down', 10),
-('2016.02.01-09:01:56', 'GOLD', 'div', 20);
 
 -- --------------------------------------------------------
 
@@ -134,38 +110,21 @@ INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
 
 CREATE TABLE IF NOT EXISTS `transactions` (
   `DateTime` varchar(19) DEFAULT NULL,
-  `Player` varchar(6) DEFAULT NULL,
+  `Player` varchar(20) DEFAULT NULL,
   `Stock` varchar(4) DEFAULT NULL,
   `Trans` varchar(4) DEFAULT NULL,
-  `Quantity` int(4) DEFAULT NULL,
+  `Quantity` int(4) DEFAULT 0,
   FOREIGN KEY (`Player`)
     REFERENCES `players`(`Player`),
   FOREIGN KEY (`Stock`)
     REFERENCES `stocks`(`Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`DateTime`, `Player`, `Stock`, `Trans`, `Quantity`) VALUES
-('2016.02.01-09:01:00', 'Donald', 'BOND', 'buy', 100),
-('2016.02.01-09:01:05', 'Donald', 'TECH', 'sell', 1000),
-('2016.02.01-09:01:10', 'Henry', 'TECH', 'sell', 1000),
-('2016.02.01-09:01:15', 'Donald', 'IND', 'sell', 1000),
-('2016.02.01-09:01:20', 'George', 'GOLD', 'sell', 100),
-('2016.02.01-09:01:25', 'George', 'OIL', 'buy', 500),
-('2016.02.01-09:01:30', 'Henry', 'GOLD', 'sell', 100),
-('2016.02.01-09:01:35', 'Henry', 'GOLD', 'buy', 1000),
-('2016.02.01-09:01:40', 'Donald', 'TECH', 'buy', 100),
-('2016.02.01-09:01:45', 'Donald', 'OIL', 'sell', 100),
-('2016.02.01-09:01:50', 'Donald', 'TECH', 'sell', 100),
-('2016.02.01-09:01:55', 'George', 'OIL', 'buy', 100),
-('2016.02.01-09:01:60', 'George', 'IND', 'buy', 100);
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `avatars`
@@ -173,7 +132,7 @@ INSERT INTO `transactions` (`DateTime`, `Player`, `Stock`, `Trans`, `Quantity`) 
 
 
 CREATE TABLE IF NOT EXISTS `avatars` (
-  `Player`  varchar(6)    NOT NULL,
+  `Player`  varchar(20)    NOT NULL,
   `Path`    varchar(256)  NOT NULL,
   `Image`   varchar(50)   NOT NULL,
   PRIMARY KEY (`Player`), 

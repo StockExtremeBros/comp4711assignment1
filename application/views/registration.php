@@ -9,11 +9,6 @@
         <p class="help-block"></p>
     </fieldset>
     <fieldset class="form-group">
-        <label class="form-control-label" for="email">E-mail</label>
-        <input type="text" id="email" name="email" class="form-control">
-        <p class="help-block"></p>
-    </fieldset>
-    <fieldset class="form-group">
         <label class="form-control-label" for="password">Password</label>
         <input type="password" placeholder="Minimum 5 characters" id="password" name="password" class="form-control">
         <p class="help-block"></p>

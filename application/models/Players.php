@@ -48,7 +48,30 @@ class Players extends CI_Model{
     function getPlayerNames()
     {
         //$this->db->order_by("id", "desc");
-        $query = $this->db->query('SELECT player FROM players');
+        $query = $this->db->query('SELECT Player FROM players');
         return $query->result();
+    }
+    
+    function addPlayer($player, $password)
+    {
+        // INSERT for players table
+        $data = array('Player' => $player, 'Cash' => 5000);
+        $query = $this->db->insert_string('players', $data);
+        if (!$this->db->query($query))
+        {
+            return false;
+        }
+        
+        // INSERT for passwords table
+        $data = array('Player' => $player, 'Password' => $password);
+        $query = $this->db->insert_string('passwords', $data);
+        return $this->db->query($query);
+    }
+    
+    function checkPassword($player, $password)
+    {
+        $query = $this->db->query('SELECT Password FROM passwords '
+                . 'WHERE player = \'' . $player . '\'');
+        return password_verify($password, $query->result()[0]->Password);
     }
 }
