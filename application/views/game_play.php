@@ -20,4 +20,20 @@
             </div>
         </div>
     </div>
+    <div>
+        <h3>Buy Stocks</h3>
+        <form action="../gameplay/buy_stock" method="post">
+            {stockdropdown}
+            <input type="number" name="buy-quantity" placeholder="Quantity" min="0">
+            <button type="submit" class="btn btn-default" id="buy-btn">Buy!</button>
+        </form>
+    </div>
+    <div>
+        <h3>Sell Stocks</h3>
+        <form action="../gameplay/sell_stock" method="post">
+            {stockdropdown}
+            <input type="number" name="sell-quantity" placeholder="Quantity" min="0">
+            <button type="submit" class="btn btn-default" id="sell-btn">Sell!</button>
+        </form>
+    </div>
 </div>

@@ -27,6 +27,7 @@ class PlayerStats extends Application{
         }
         else
         {
+            var_dump($_SESSION);
             $this->load->library('table');
         
             $this->data['pagebody'] = 'player_stats';
@@ -63,7 +64,7 @@ class PlayerStats extends Application{
     function fill_drop_down()
     {
         $allPlayers = $this->players->getPlayerNames();
-        $players = '';
+        $players = '<li>None</li>';
         foreach($allPlayers as $row)
         { 
              $players .= '<li><a href="/profiles/'.$row->Player.'">'.$row->Player.'</a></li>';

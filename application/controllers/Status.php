@@ -11,7 +11,7 @@ class Status extends Application {
     
     public function index()
     {
-        $this->load->model('gamestatus');
+        $this->load->helper('request_helper');
     }
     
 }

@@ -46,6 +46,23 @@ function process_buy_request($result)
     }
 }
 
+function get_token()
+{
+    $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
+    $xml = simplexml_load_string($website);
+
+    if (isset($xml->error))
+    {
+        //error
+        return $xml->error->message;
+    }
+    else
+    {
+        return $xml->token;
+    }
+        
+}
+
 //http://bsx.jlparry.com/sell?token=3a3b991110d18050a790d4a865e1daa0&player=gc&team=o03&stock=FBN&quantity=2&certificate=95a0f
 if (! function_exists('sell_request'))
 {
@@ -119,10 +136,42 @@ if (! function_exists('get_movements'))
                 {
                     $temp = $keys[$i];
                     $move[$j][$temp] = $csv[$i];
-                }         
+                }
             }
             $j++;
         }
         return $move;
     }
+}
+
+function get_stocks()
+{
+    $CI =& get_instance();
+    $CI->load->library('curl');
+    $CI->load->model('stocks');
+    $result = $CI->curl->simple_get('http://bsx.jlparry.com/data/stocks/');
+    $strings = explode("\n", $result);
+    
+    $keys = str_getcsv($strings[0]);
+    
+    array_splice($strings, 0, 1); // remove keys
+    //var_dump($strings);
+    $stocks = array();
+    $j = 0;
+    //foreach ($strings as $line) {
+    for ($k = count($strings) - 1; $k > 0; $k--) {
+        $csv = str_getcsv($strings[$k]);
+        //var_dump($csv);
+        for ($i = 0; $i < count($csv); $i++)
+        {
+            if (!is_null($csv[$i])) // for some reason, the last line is an empty string
+            {
+                $temp = $keys[$i];
+                $stocks[$j][$temp] = $csv[$i];
+            }
+        }
+        $j++;
+    }
+    $CI->stocks->insertNewStocks($stocks);
+    return $stocks;
 }
