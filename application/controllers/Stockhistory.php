@@ -51,6 +51,8 @@ class StockHistory extends Application {
     public function getMostRecentTransaction()
     {
         $recent = $this->transactions->getRecentStockTransaction();
+        if ($recent == null)
+            return null;
         foreach($recent as $key=>$value)
         {
             $code = $value['Stock'];
