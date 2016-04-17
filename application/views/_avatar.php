@@ -1,6 +1,5 @@
 <div class="avatar">
-    <h6 class="avatar-desc">{avatar_name}</h6>
-    <img class="avatar-img" alt="{avatar_alt}" scr="{avatar_path}">
-    <p class="avatar-desc">{avatar_desc}</p>
+    <img class="avatar-img" alt="{image}" src="{path}"/>
+    <h4 class="avatar-desc">{player}</h4>
 </div>
 

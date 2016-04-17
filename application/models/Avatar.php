@@ -30,7 +30,7 @@ class Avatar extends CI_Model{
     function getAvatar($player)
     {
         $sql = "SELECT * FROM avatars WHERE Player = ? LIMIT 1";
-        $query = $this->db->query($sql, array($Name));
+        $query = $this->db->query($sql, array($player));
         return $query->result_array();
     }
     
@@ -44,25 +44,24 @@ class Avatar extends CI_Model{
     // Uploads an entirely new player.
     function uploadNewPlayer($player, $path, $image)
     {
-        //Untested
-        $exists = $this->findPlayer($player);
-        var_dump($exists);
-        if(isset($exists) || !empty($exists))
-        {
-            //Error, the player already exists in the table.
-            return false;
-        }
-        $sql = "INSERT INTO avatars (Player, Path, Image) VALUES ('".$player."', '".$path."', '".$image."')";
-        $this->db->query($sql);
-        
-        return true;
+        $data = array(
+            'player' => $player,
+            'path' => $path,
+            'image' => $image
+         );
+        $this->db->delete('avatars', array('player' => $player)); 
+        $this->db->insert('avatars', $data); 
     }
     
-    // Replaces an existing avatar with a new one.
-    function replaceAvatar($player, $path, $image)
+    function uploadDefault($player)
     {
-        // Untested
-        $sql = "REPLACE INTO avatars VALUES ('".$player."', '".$path."', '".$image."')";
-        $this->db->query($sql);
+        $data = array(
+            'player' => $player,
+            'path' => "/assets/pictures/avatars/default_user.jpg",
+            'image' => "default_user"
+         );
+        $this->db->delete('avatars', array('player' => $player)); 
+        $this->db->insert('avatars', $data); 
     }
+    
 }

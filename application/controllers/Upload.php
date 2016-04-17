@@ -1,6 +1,4 @@
 <?php
-if (!defined('BASEPATH'))
-  exit('No direct script access allowed');
 
 class Upload extends Application {
 
@@ -16,12 +14,14 @@ class Upload extends Application {
         $this->load->helper('url');
         
         //Set the message for the first time
-        $data = array('msg'         => "uploads to the assets/pictures/avatars/ folder",
-                      'upload_data' => "No uploaded file data yet.",
-                      'file_name'   => "");
+        $this->data['msg'] = "uploads to the assets/pictures/avatars/ folder";
+        $this->data['upload_data'] = "No uploaded file data yet.";
+        $this->data['file_name'] = "";
 
         //load the view/upload.php with $data
-        $this->parser->parse('_upload_form', $data);
+        $this->data['pagebody'] = '_upload_form';
+        $this->load->model('avatar');
+        $this->render();
     }
 
 

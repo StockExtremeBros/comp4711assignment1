@@ -35,6 +35,15 @@ class Application extends CI_Controller {
         $this->load->model('transactions');
         // Load url helper
         $this->load->helper('url');
+        
+        // Check if the user is logged in via the php session
+        if (array_key_exists('current_user', $_SESSION)) {
+            $this->data['current_user'] = $_SESSION['current_user'];
+            $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
+        } else {
+            $navbar =  $this->parser->parse('_navbar_loggedout', $this->data, true);
+        }
+        $this->data['header'] = $navbar;
     }
 
     /**
@@ -45,16 +54,7 @@ class Application extends CI_Controller {
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
         $this->data['dependencies'] = $this->parser->parse('_dependencies', $this->data, true);
         $this->data['footer'] = $this->load->view('_footer', $this->data, true);
-        
-        // Check if the user is logged in via the php session
-        if (array_key_exists('current_user', $_SESSION)) {
-            $this->data['current_user'] = $_SESSION['current_user'];
-            $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
-        } else {
-            $navbar =  $this->parser->parse('_navbar_loggedout', $this->data, true);
-        }
-        $this->data['header'] = $navbar;
-        
+
         $this->data['data'] = &$this->data;
 	$this->parser->parse('_template', $this->data);
     }
@@ -128,6 +128,16 @@ class Application extends CI_Controller {
         return $equity;
     }
 
+    function create_avatar($player)
+    {
+        $this->load->model('avatar');
+        $avatar = $this->avatar->getAvatar($player)[0];
+        $avatar['player'] = $avatar['Player'];
+        $avatar['path'] = $avatar['Path'];
+        $avatar['image'] = $avatar['Image'];
+        $this->data['avatar'] = $this->parser->parse('_avatar', $avatar, true);
+    }
+    
 }
 
 /* End of file MY_Controller.php */
