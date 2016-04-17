@@ -14,21 +14,74 @@ class Stocks extends CI_Model{
     
     function insertNewStocks($newStocks)
     {
-        //var_dump("Moves like Jaegar");
-        //var_dump($this->all());
-        //var_dump("Moves like Jaegar");
-        $this->db->empty_table('stocks');
-        
-        foreach($newStocks as $stock)
+        $oldStocks = $this->getStockCodesArray();
+        foreach($newStocks as $new)
         {
-            $data = array(
-            'Code' => $stock["code"],
-            'Name' => $stock["name"],
-            'Value' => $stock["value"],
-            'Category' => $stock["category"]
-            );
-            $this->db->insert('stocks', $data); 
+            $found = false;
+            if(empty($new))
+            {
+                continue;
+            }
+            
+            foreach($oldStocks as $old)
+            {
+                if(empty($old))
+                {
+                    continue;
+                }
+                if($new["code"] == $old["Code"])
+                {
+                    var_dump("Found the thing");
+                    $found = true;
+                }
+            }
+            
+            if($found == false)
+            {
+                break;
+            }
         }
+        
+        if($found == true) // New stocks, regenerate the table
+        {
+            $this->db->empty_table('stocks');
+            foreach($newStocks as $stock)
+            {
+                if(empty($stock))
+                {
+                    continue;
+                }
+
+                $data = array(
+                'Code' => $stock["code"],
+                'Name' => $stock["name"],
+                'Value' => $stock["value"],
+                'Category' => $stock["category"]
+                );
+                $this->db->insert('stocks', $data);
+            }
+        }
+        else //Same game, update it
+        {
+            foreach($newStocks as $stock)
+            {
+                if(empty($stock))
+                {
+                    continue;
+                }
+
+                $data = array(
+                'Code' => $stock["code"],
+                'Name' => $stock["name"],
+                'Value' => $stock["value"],
+                'Category' => $stock["category"]
+                );
+                $this->db->insert('stocks', $data);
+            }
+            $this->db->where('Code', $stock["code"]);
+            $this->db->update('mytable', $data); 
+        }
+        
     }
     
     // Grab all of the information from the Stocks table
@@ -84,6 +137,13 @@ class Stocks extends CI_Model{
     {
         $query = $this->db->query('SELECT Code FROM stocks');
         return $query->result();
+    }
+    
+    //Get all of the codes from the stocks table.
+    function getStockCodesArray()
+    {
+        $query = $this->db->query('SELECT Code FROM stocks');
+        return $query->result_array();
     }
     
     //Get only name and value from the stocks table with a stock's code.

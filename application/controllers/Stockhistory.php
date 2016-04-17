@@ -31,7 +31,10 @@ class StockHistory extends Application {
                 //Grab the most recent $stock transaction here.
                 $stock = $this->getMostRecentTransaction();                
             }
-            
+            if($stock == null) // no transactions
+            {
+                // GRAB A RANDOM STOCK HERE
+            }            
             //force the stock to adhere to the naming convention of only the
             //first letter being an upper-case. 
             $stock = ucfirst(strtolower($stock));
