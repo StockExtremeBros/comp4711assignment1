@@ -9,7 +9,7 @@
       <li><a href="/profiles">Profile</a></li>
     </ul>
     <form class="navbar-form navbar-right ajax-form" role="forms" action="../forms/logout" method="post">
-        <img class="avatar-img-navbar" alt="{avatar_image}" src="{avatar_path}"/>
+        <a href="upload"><img class="avatar-img-navbar" alt="{avatar_image}" src="{avatar_path}"/></a>
         <label class="text-muted">User: {current_user}&nbsp;&nbsp;&nbsp;</label>
         <button type="submit" class="btn btn-default" id="logout-btn">Sign out</button>
     </form>
