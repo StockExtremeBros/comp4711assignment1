@@ -12,6 +12,25 @@ class Stocks extends CI_Model{
         parent::__construct();
     }
     
+    function insertNewStocks($newStocks)
+    {
+        //var_dump("Moves like Jaegar");
+        //var_dump($this->all());
+        //var_dump("Moves like Jaegar");
+        $this->db->empty_table('stocks');
+        
+        foreach($newStocks as $stock)
+        {
+            $data = array(
+            'Code' => $stock["code"],
+            'Name' => $stock["name"],
+            'Value' => $stock["value"],
+            'Category' => $stock["category"]
+            );
+            $this->db->insert('stocks', $data); 
+        }
+    }
+    
     // Grab all of the information from the Stocks table
     function all()
     {

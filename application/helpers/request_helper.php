@@ -50,6 +50,7 @@ function get_token()
 {
     $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
     $xml = simplexml_load_string($website);
+
     if (isset($xml->error))
     {
         //error
@@ -57,7 +58,6 @@ function get_token()
     }
     else
     {
-        
         return $xml->token;
     }
         
@@ -148,16 +148,21 @@ function get_stocks()
 {
     $CI =& get_instance();
     $CI->load->library('curl');
+    $CI->load->model('stocks');
     $result = $CI->curl->simple_get('http://bsx.jlparry.com/data/stocks/');
     $strings = explode("\n", $result);
+    
     $keys = str_getcsv($strings[0]);
+    
     array_splice($strings, 0, 1); // remove keys
+    //var_dump($strings);
     $stocks = array();
     $j = 0;
     //foreach ($strings as $line) {
     for ($k = count($strings) - 1; $k > 0; $k--) {
         $csv = str_getcsv($strings[$k]);
-        for ($i = 1; $i < count($csv); $i++)
+        //var_dump($csv);
+        for ($i = 0; $i < count($csv); $i++)
         {
             if (!is_null($csv[$i])) // for some reason, the last line is an empty string
             {
@@ -167,6 +172,6 @@ function get_stocks()
         }
         $j++;
     }
-    //var_dump($stocks);
+    $CI->stocks->insertNewStocks($stocks);
     return $stocks;
 }
