@@ -50,7 +50,6 @@ function get_token()
 {
     $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
     $xml = simplexml_load_string($website);
-    
     if (isset($xml->error))
     {
         //error
@@ -58,8 +57,8 @@ function get_token()
     }
     else
     {
-        $agent = $xml->agent;
-        return $agent->token;
+        
+        return $xml->token;
     }
         
 }
@@ -143,4 +142,31 @@ if (! function_exists('get_movements'))
         }
         return $move;
     }
+}
+
+function get_stocks()
+{
+    $CI =& get_instance();
+    $CI->load->library('curl');
+    $result = $CI->curl->simple_get('http://bsx.jlparry.com/data/stocks/');
+    $strings = explode("\n", $result);
+    $keys = str_getcsv($strings[0]);
+    array_splice($strings, 0, 1); // remove keys
+    $stocks = array();
+    $j = 0;
+    //foreach ($strings as $line) {
+    for ($k = count($strings) - 1; $k > 0; $k--) {
+        $csv = str_getcsv($strings[$k]);
+        for ($i = 1; $i < count($csv); $i++)
+        {
+            if (!is_null($csv[$i])) // for some reason, the last line is an empty string
+            {
+                $temp = $keys[$i];
+                $stocks[$j][$temp] = $csv[$i];
+            }
+        }
+        $j++;
+    }
+    //var_dump($stocks);
+    return $stocks;
 }
