@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `Stock` varchar(4) DEFAULT NULL,
   `Trans` varchar(4) DEFAULT NULL,
   `Quantity` int(4) DEFAULT 0,
+  `Certificate` varchar(10) DEFAULT NULL,
   FOREIGN KEY (`Player`)
     REFERENCES `players`(`Player`),
   FOREIGN KEY (`Stock`)

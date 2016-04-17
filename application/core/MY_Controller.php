@@ -34,6 +34,7 @@ class Application extends CI_Controller {
         $this->load->model('stocks');
         $this->load->model('transactions');
         $this->load->model('avatar');
+        $this->load->model('gamestatus');
         // Load url helper
         $this->load->helper('url');
         

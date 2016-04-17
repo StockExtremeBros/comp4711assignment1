@@ -3,6 +3,7 @@
         Buy and Sell Stock
     </h1>
     <div>
+        <h4>Game status: {status}</h4>
         <h4>Current equity: {equity}</h4>
         <h4>Cash on hand: {cash}</h4>
     </div>
