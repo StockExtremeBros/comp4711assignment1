@@ -56,7 +56,6 @@ class Gamestatus extends CI_Model{
             isset($this->xml->countdown) ? $status['countdown'] = $this->xml->countdown[0] : $status['countdown'] = 0; 
         }
         
-        
         var_dump($status);
     }
 }

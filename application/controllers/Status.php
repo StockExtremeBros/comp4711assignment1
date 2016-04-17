@@ -12,7 +12,6 @@ class Status extends Application {
     public function index()
     {
         $this->load->model('gamestatus');
-        var_dump("hello there");
     }
     
 }
