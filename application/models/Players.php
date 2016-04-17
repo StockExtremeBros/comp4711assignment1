@@ -68,6 +68,13 @@ class Players extends CI_Model{
         return $this->db->query($query);
     }
     
+    function removePlayer($player)
+    {
+        $tables = array('passwords', 'avatars', 'transactions', 'players');
+        $this->db->where('Player', $player);
+        return $this->db->delete($tables);
+    }
+    
     function checkPassword($player, $password)
     {
         $query = $this->db->query('SELECT Password FROM passwords '
