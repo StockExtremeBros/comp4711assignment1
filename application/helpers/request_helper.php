@@ -6,25 +6,17 @@
 if (! function_exists('buy_request'))
 {
     function buy_request($token, $team, $player, $stock, $quantity) {
-        $this->load->library('curl');
-        $result = $this->curl->simple_post('http://bsx.jlparry.com/buy',
+        $CI =& get_instance();
+        $CI->load->library('curl');
+        $result = $CI->curl->simple_post('http://bsx.jlparry.com/buy',
                 array('team' => $team,
                       'token' => $token,
                       'player' => $player,
                       'stock' => $stock,
                       'quantity' => $quantity)
                 );
-        var_dump($result);
         return $result;
-        //<certificate>
-//<token>95a0f</token>
-//<stock>FBN</stock>
-//<agent>o03</agent>
-//<player>gc</player>
-//<amount>2</amount>
-//<datetime>1460834307</datetime>
-//</certificate>
-}
+    }
 }
 
 function process_buy_request($result)
@@ -36,13 +28,19 @@ function process_buy_request($result)
         return $xml->error->message;
     } else {
         $cert = $xml->certificate;
+        //var_dump($cert);
         
         //things to save to DB
         $cert_token = $cert->token;
+        var_dump($cert_token);
         $stock = $cert->stock;
+        var_dump($stock);
         $player = $cert->player;
+        var_dump($player);
         $amount = $cert->amount;
+        var_dump($amount);
         $dt = $cert->datetime; //do we need to save this?
+        var_dump($dt);
     }
 }
 
@@ -121,7 +119,7 @@ if (! function_exists('get_movements'))
     function get_movements($num) {
         $CI =& get_instance();
         $CI->load->library('curl');
-        $result = $CI->curl->simple_get('http://www.comp4711bsx.local/data/movement/'.$num);
+        $result = $CI->curl->simple_get('http://bsx.jlparry.com/data/movement/'.$num);
         $strings = explode("\n", $result);
         $keys = str_getcsv($strings[0]);
         array_splice($strings, 0, 1); // remove keys
@@ -159,7 +157,7 @@ function get_stocks()
     $stocks = array();
     $j = 0;
     //foreach ($strings as $line) {
-    for ($k = count($strings) - 1; $k > 0; $k--) {
+    for ($k = 0; $k < count($strings); $k++) {
         $csv = str_getcsv($strings[$k]);
         //var_dump($csv);
         for ($i = 0; $i < count($csv); $i++)
