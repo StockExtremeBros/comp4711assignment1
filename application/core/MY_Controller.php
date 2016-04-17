@@ -34,6 +34,7 @@ class Application extends CI_Controller {
         $this->load->model('stocks');
         $this->load->model('transactions');
         $this->load->model('avatar');
+        $this->load->model('gamestatus');
         // Load url helper
         $this->load->helper('url');
         
@@ -41,9 +42,11 @@ class Application extends CI_Controller {
         if (array_key_exists('current_user', $_SESSION)) {
             $this->data['current_user'] = $_SESSION['current_user'];
             $this->getAvatarInfo($this->data['current_user']);
-            
-            
-            $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
+            if (array_key_exists('is_admin', $_SESSION)) {
+                $navbar =  $this->parser->parse('_navbar_admin', $this->data, true);
+            } else {
+                $navbar =  $this->parser->parse('_navbar_loggedin', $this->data, true);
+            }
         } else {
             $navbar =  $this->parser->parse('_navbar_loggedout', $this->data, true);
         }

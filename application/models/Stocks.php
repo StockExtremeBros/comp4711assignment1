@@ -15,13 +15,14 @@ class Stocks extends CI_Model{
     function insertNewStocks($newStocks)
     {
         $oldStocks = $this->getStockCodesArray();
+        $count = 0;
         foreach($newStocks as $new)
         {
-            $found = false;
             if(empty($new))
             {
                 continue;
             }
+            $found = false;
             
             foreach($oldStocks as $old)
             {
@@ -31,18 +32,12 @@ class Stocks extends CI_Model{
                 }
                 if($new["code"] == $old["Code"])
                 {
-                    var_dump("Found the thing");
-                    $found = true;
+                    $count++;
                 }
-            }
-            
-            if($found == false)
-            {
-                break;
             }
         }
         
-        if($found == true) // New stocks, regenerate the table
+        if($count != count($oldStocks) && count($newStocks > 0)) // New stocks, regenerate the table
         {
             $this->db->empty_table('stocks');
             foreach($newStocks as $stock)
@@ -79,7 +74,7 @@ class Stocks extends CI_Model{
                 $this->db->insert('stocks', $data);
             }
             $this->db->where('Code', $stock["code"]);
-            $this->db->update('mytable', $data); 
+            $this->db->update('stocks', $data); 
         }
         
     }

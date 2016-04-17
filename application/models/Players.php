@@ -68,10 +68,28 @@ class Players extends CI_Model{
         return $this->db->query($query);
     }
     
+    function removePlayer($player)
+    {
+        $tables = array('passwords', 'avatars', 'transactions', 'players');
+        $this->db->where('Player', $player);
+        return $this->db->delete($tables);
+    }
+    
     function checkPassword($player, $password)
     {
         $query = $this->db->query('SELECT Password FROM passwords '
                 . 'WHERE player = \'' . $player . '\'');
         return password_verify($password, $query->result()[0]->Password);
+    }
+    
+    function isAdmin($player)
+    {
+        $query = $this->db->query('SELECT Role FROM passwords '
+                . 'WHERE player = \'' . $player . '\'');
+        if ($query->result()[0]->Role == 'Admin')
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -81,5 +81,14 @@ $(function() {
                 }
             }
         });
+    } else if (window.location.pathname === '/editusers')
+    {
+        $('.btn-delete-user').on('click', function() {
+            if (confirm('Are you sure you want to delete the selected user?')) {
+                $(this).parent().submit();
+            } else {
+                return false;
+            }
+        });
     }
 });

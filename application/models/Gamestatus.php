@@ -62,11 +62,23 @@ class Gamestatus extends CI_Model{
     {
         if(isset($this->status['state']))
         {
-            return $this->status['state'];
+            return (string) $this->status['state'];
         }
         else
         {
             return 0;
+        }
+    }
+    
+    function getCurrent()
+    {
+        if(isset($this->status['current']))
+        {
+            return $this->status['current'];
+        }
+        else
+        {
+            return 'closed';
         }
     }
 }

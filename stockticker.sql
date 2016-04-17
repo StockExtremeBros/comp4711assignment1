@@ -71,6 +71,7 @@ INSERT INTO `players` (`Player`, `Cash`) VALUES
 CREATE TABLE IF NOT EXISTS `passwords` (
   `Player` varchar(20) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
+  `Role` varchar(6) NOT NULL DEFAULT 'Player',
   PRIMARY KEY (`Player`),
   FOREIGN KEY (`Player`)
     REFERENCES `players`(`Player`)
@@ -80,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `passwords` (
 -- Dumping data for table `players`
 --
 
+INSERT INTO `passwords` (`Player`, `Password`, `Role`) VALUES
+('admin', '$2y$10$/XezEnPTJhJgyZqXFMrf6.iShSkv0aKrR2lRnRT/lmXGVWL0meL4.', 'Admin');
 INSERT INTO `passwords` (`Player`, `Password`) VALUES
-('admin', '$2y$10$/XezEnPTJhJgyZqXFMrf6.iShSkv0aKrR2lRnRT/lmXGVWL0meL4.'),
 ('player', '$2y$10$oGuvoKZagaatA.ubUfqC8eaKG1soWcjrZn1G8w3WkMcouRkgUKo4S');
 
 
@@ -114,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `Stock` varchar(4) DEFAULT NULL,
   `Trans` varchar(4) DEFAULT NULL,
   `Quantity` int(4) DEFAULT 0,
+  `Certificate` varchar(10) DEFAULT NULL,
   FOREIGN KEY (`Player`)
     REFERENCES `players`(`Player`),
   FOREIGN KEY (`Stock`)

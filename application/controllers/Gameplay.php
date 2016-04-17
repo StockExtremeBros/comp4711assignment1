@@ -26,6 +26,10 @@ class GamePlay extends Application{
             $this->load->helper('date');
             
             $this->load->library('table');
+            
+            $status = $this->gamestatus->getGameState();
+
+            get_stocks();
         
             $this->data['pagebody'] = 'game_play';
         
@@ -43,6 +47,7 @@ class GamePlay extends Application{
         
             $this->data['player'] = $current_player;
             
+            $this->data['status'] = $this->gamestatus->getCurrent();
             $this->data['equity'] = $this->get_player_equity($current_player);
             
             //$this->populate_recent_activity($current_player);
@@ -116,13 +121,43 @@ class GamePlay extends Application{
     
     function buy_stock()
     {
-        $selected_stock = $this->input->post('stocks');
-        var_dump($selected_stock);
-        $quantity = $this->input->post('buy-quantity');
-        var_dump($quantity);
-        //get token
-        //get team
-        //$result = buy_request($token, $team, $current_player, $selected_stock, $quantity);
+        $status = $this->gamestatus->getGameState();
+        if (strcmp($status,'3') === 0) //open
+        {
+            $player = $_SESSION['current_user'];
+            $this->load->helper('request');
+            $selected_stock = $this->input->post('stocks');
+            $quantity = $this->input->post('buy-quantity');
+            //get token
+            $token = '88a4e5fbc44c80aa0490b96f070ffa18';
+            //get team
+            $team = 'o03';
+            $result = buy_request($token, $team, $player, $selected_stock, $quantity);
+            $xml = simplexml_load_string($result);
+            if (isset($xml->message))
+            {
+                //error
+                //parse message?
+                echo (string) $xml->message;
+            } else {
+                //things to save to DB
+                $token = $xml->token;
+                var_dump((string) $token);
+                $stock = $xml->stock;
+                var_dump((string)$stock);
+                $player = $xml->player;
+                var_dump((string)$player);
+                $amount = $xml->amount;
+                var_dump((string)$amount);
+                $dt = $xml->datetime; //do we need to save this?
+                var_dump((string)$dt);
+
+                $this->transactions->saveTransaction($token, $player, $stock, 'buy', $amount, $dt);
+            }
+        } else {
+            //redirect(base_url().'/gameplay');
+            echo "not open";
+        }       
     }
     
     function sell_stock()
@@ -139,11 +174,11 @@ class GamePlay extends Application{
     
     function populate_stock_dropdown()
     {
-        $stocks = $this->stocks->getStockNames();
+        $stocks = $this->stocks->getStockCodes();
         $options = array();
         foreach($stocks as $key=>$value)
         {
-            $options[$value->Name] = $value->Name;
+            $options[$value->Code] = $value->Code;
         }
         return form_dropdown('stocks', $options);
     }
