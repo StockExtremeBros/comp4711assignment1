@@ -12,6 +12,7 @@ class Status extends Application {
     public function index()
     {
         $this->load->helper('request_helper');
+        get_stocks();
     }
     
 }

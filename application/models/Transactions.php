@@ -52,7 +52,7 @@ class Transactions extends CI_Model{
     {
         $sql = "SELECT * FROM transactions ORDER BY DateTime DESC LIMIT 1";
         $query = $this->db->query($sql);
-        
+        var_dump($query);
         return $query->result_array();
     }
     
