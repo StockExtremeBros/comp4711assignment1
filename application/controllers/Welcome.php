@@ -88,4 +88,31 @@ class Welcome extends Application {
         $this->table->set_heading('Player', 'Current Cash', 'Current Equity');
         $this->data['playeroverview'] = $this->table->generate($players);
     }
+    
+    /*
+     * Create the player's equity uses the player's transactions in stocks.
+     */
+    function get_player_equity($player)
+    {
+        $allStocks = $this->stocks->all();
+        $equity = 0;
+        foreach ($allStocks as $row)
+        {
+            $total = 0;
+            $player_stock = $this->transactions->getPlayerTransactionsForStock($player, $row['Code']);
+            foreach ($player_stock as $trans)
+            {
+                if ($trans->Trans == 'buy')
+                {
+                    $total += $trans->Quantity;
+                }
+                else if ($trans->Trans == 'sell')
+                {
+                    $total -= $trans->Quantity;
+                }
+            }
+            $equity += ($total * $row['Value']);
+        }
+        return $equity;
+    }
 }
