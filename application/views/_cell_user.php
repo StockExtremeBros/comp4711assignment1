@@ -1,1 +1,1 @@
-<form class="form-horizontal" action='../editusers/removeuser' method="POST"><label class="col-lg-3">{username}</label><input type="hidden" name="user_delete" value="{username}"><button type="submit" class="btn">Delete user</button></form>
+<form class="form-horizontal" action='../editusers/removeuser' method="POST"><label class="col-lg-3">{username}</label><input type="hidden" name="user_delete" value="{username}"><button type="submit" class="btn btn-delete-user">Delete user</button></form>

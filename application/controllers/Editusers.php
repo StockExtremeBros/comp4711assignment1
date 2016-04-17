@@ -13,6 +13,10 @@ class Editusers extends Application {
         $this->load->library('table');
         $this->load->library('parser');
         $this->load->library('session');
+        if (!array_key_exists('is_admin', $_SESSION))
+        {
+            redirect(base_url());
+        }
         $this->data['pagebody'] = 'editusers';
         
         $users = $this->players->getPlayerNames();
