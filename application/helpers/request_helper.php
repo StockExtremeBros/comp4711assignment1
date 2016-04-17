@@ -50,7 +50,6 @@ function get_token()
 {
     $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
     $xml = simplexml_load_string($website);
-    
     if (isset($xml->error))
     {
         //error
@@ -58,8 +57,8 @@ function get_token()
     }
     else
     {
-        $agent = $xml->agent;
-        return $agent->token;
+        
+        return $xml->token;
     }
         
 }
@@ -168,6 +167,6 @@ function get_stocks()
         }
         $j++;
     }
-    var_dump($stocks);
+    //var_dump($stocks);
     return $stocks;
 }

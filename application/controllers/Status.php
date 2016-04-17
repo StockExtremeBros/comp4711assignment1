@@ -13,7 +13,10 @@ class Status extends Application {
     {
         $this->load->helper('request_helper');
         //$this->load->model('gamestatus');
-        get_stocks();
+        var_dump(get_token());
+        //get_stocks();
+        
+        
     }
     
 }
