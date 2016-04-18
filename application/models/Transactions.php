@@ -62,4 +62,11 @@ class Transactions extends CI_Model{
                 $datetime, $player, $stock, $type, $quantity, $cert);
         $query = $this->db->query($sql);
     }
+    
+    function getCertificates($player, $stock)
+    {
+        $sql = 'SELECT Certificate FROM transactions where Player = \''. $player .'\' AND Stock = \''. $stock.'\'';
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
 }
