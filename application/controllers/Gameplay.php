@@ -163,14 +163,40 @@ class GamePlay extends Application{
     
     function sell_stock()
     {
-        $selected_stock = $this->input->post('stocks');
-        var_dump($selected_stock);
-        $quantity = $this->input->post('sell-quantity');
-        var_dump($quantity);
-        $token = $this->tokens->get_token();
-        $team = $this->tokens->get_agent();
-        //get certificates
-        //$result = sell_request($token, $team, $current_player, $selected_stock, $quantity, $certificate);
+        $this->load->helper('request');
+        get_stocks();
+        $status = $this->gamestatus->getGameState();
+        if (strcmp($status,'3') === 0) //open
+        {
+            $player = $_SESSION['current_user']; 
+            $selected_stock = $this->input->post('stocks');
+            $quantity = $this->input->post('sell-quantity');
+            $token = $this->tokens->get_token();
+            $team = $this->tokens->get_agent();
+            $certificate = $this->transactions->getCertificates($player, $selected_stock);
+            $result = sell_request($token, $team, $player, $selected_stock, $quantity, $certificate);
+            $xml = simplexml_load_string($result);
+            if (isset($xml->message))
+            {
+                //error
+                //parse message?
+                echo (string) $xml->message;
+            } else {
+                //things to save to DB
+                $token = $xml->token;
+                $stock = $xml->stock;
+                $player = $xml->player;
+                $amount = $xml->amount;
+                $dt = $xml->datetime;
+                $this->transactions->saveTransaction($token, $player, $stock, 'sell', $amount, $dt);
+                $price = $this->stocks->getStockValueByCode($stock);
+                $this->players->gainedCash($price, $amount, $player);
+                redirect('/gameplay');
+            }
+        } else {
+            redirect('/gameplay');
+            //echo "not open";
+        }   
     }
     
     function populate_stock_dropdown()
