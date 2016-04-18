@@ -173,7 +173,12 @@ function get_stocks()
         }
         $j++;
     }
-    $CI->stocks->insertNewStocks($stocks);
+    $inserted = $CI->stocks->insertNewStocks($stocks);
+    if ($inserted)
+    {
+        $CI->load->model('players');
+        $CI->players->resetCash();
+    }
     return $stocks;
 }
 

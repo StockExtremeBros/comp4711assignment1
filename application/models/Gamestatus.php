@@ -25,7 +25,7 @@ class Gamestatus extends CI_Model{
         
         try
         {
-            $website = file_get_contents("http://www.comp4711bsx.local/status");
+            $website = file_get_contents("http://bsx.jlparry.com/status");
             $password = 'tuesday';
             $website.$password;
             $this->xml = simplexml_load_string($website);

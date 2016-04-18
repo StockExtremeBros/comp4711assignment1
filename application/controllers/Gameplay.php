@@ -126,10 +126,11 @@ class GamePlay extends Application{
     
     function buy_stock()
     {
+        $this->load->helper('request');
+        get_stocks();
         $status = $this->gamestatus->getGameState();
         if (strcmp($status,'3') === 0) //open
         {
-            $this->load->helper('request');
             $player = $_SESSION['current_user']; 
             $selected_stock = $this->input->post('stocks');
             $quantity = $this->input->post('buy-quantity');
@@ -166,9 +167,9 @@ class GamePlay extends Application{
         var_dump($selected_stock);
         $quantity = $this->input->post('sell-quantity');
         var_dump($quantity);
-        //get token
-        //get team
-        //get certificate
+        $token = $this->tokens->get_token();
+        $team = $this->tokens->get_agent();
+        //get certificates
         //$result = sell_request($token, $team, $current_player, $selected_stock, $quantity, $certificate);
     }
     

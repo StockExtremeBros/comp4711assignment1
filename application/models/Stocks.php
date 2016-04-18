@@ -14,6 +14,7 @@ class Stocks extends CI_Model{
     
     function insertNewStocks($newStocks)
     {
+        $newInserted = false;
         $oldStocks = $this->getStockCodesArray();
         $count = 0;
         foreach($newStocks as $new)
@@ -40,6 +41,7 @@ class Stocks extends CI_Model{
         if($count != count($oldStocks) && count($newStocks > 0)) // New stocks, regenerate the table
         {
             $this->db->empty_table('transactions');
+            
             $this->db->empty_table('stocks');
             foreach($newStocks as $stock)
             {
@@ -56,7 +58,7 @@ class Stocks extends CI_Model{
                 );
                 $this->db->insert('stocks', $data);
             }
-            
+            $newInserted = true;           
         }
         else //Same game, update it
         {
@@ -79,6 +81,7 @@ class Stocks extends CI_Model{
             }
             
         }
+        return $newInserted;
     }
     
     // Grab all of the information from the Stocks table
