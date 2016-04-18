@@ -150,6 +150,8 @@ class GamePlay extends Application{
                 $amount = $xml->amount;
                 $dt = $xml->datetime;
                 $this->transactions->saveTransaction($token, $player, $stock, 'buy', $amount, $dt);
+                $price = $this->stocks->getStockValueByCode($stock);
+                $this->players->spentCash($price, $amount, $player);
                 redirect('/gameplay');
             }
         } else {

@@ -163,4 +163,16 @@ class Stocks extends CI_Model{
         }
         return null;
     }
+    
+    function getStockValueByCode($code)
+    {
+        $sql = "SELECT Value FROM stocks where Code = ? LIMIT 1";
+        $query = $this->db->query($sql, array($code));
+        
+        foreach($query->result_array() as $row)
+        {
+            return $row['Value'];
+        }
+        return null;
+    }
 }

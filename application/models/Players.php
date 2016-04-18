@@ -99,4 +99,10 @@ class Players extends CI_Model{
         $cash = $query->result()[0]->Cash;
         return $cash;
     }
+    
+    function spentCash($price, $amount, $player)
+    {
+        $cash_spent = $price * $amount;
+        $query = $this->db->query('UPDATE players SET Cash = ' . $cash_spent . ' WHERE player = \'' . $player . '\'');
+    }
 }
