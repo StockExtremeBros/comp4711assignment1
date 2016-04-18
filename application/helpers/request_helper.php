@@ -170,6 +170,39 @@ function get_stocks()
         }
         $j++;
     }
+    
+    $CI->stocks->insertNewStocks($stocks);
+    return $stocks;
+}
+
+function get_transactions()
+{
+    $CI =& get_instance();
+    $CI->load->library('curl');
+    $CI->load->model('stocks');
+    $result = $CI->curl->simple_get('http://bsx.jlparry.com/data/stocks/');
+    $strings = explode("\n", $result);
+    
+    $keys = str_getcsv($strings[0]);
+    
+    array_splice($strings, 0, 1); // remove keys
+    //var_dump($strings);
+    $stocks = array();
+    $j = 0;
+    for ($k = count($strings) - 1; $k > 0; $k--) {
+        $csv = str_getcsv($strings[$k]);
+        //var_dump($csv);
+        for ($i = 0; $i < count($csv); $i++)
+        {
+            if (!is_null($csv[$i])) // for some reason, the last line is an empty string
+            {
+                $temp = $keys[$i];
+                $stocks[$j][$temp] = $csv[$i];
+            }
+        }
+        $j++;
+    }
+    
     $CI->stocks->insertNewStocks($stocks);
     return $stocks;
 }
