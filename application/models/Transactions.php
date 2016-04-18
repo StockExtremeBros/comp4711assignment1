@@ -52,7 +52,14 @@ class Transactions extends CI_Model{
     {
         $sql = "SELECT * FROM transactions ORDER BY DateTime DESC LIMIT 1";
         $query = $this->db->query($sql);
-        
+        var_dump($query);
         return $query->result_array();
+    }
+    
+    function saveTransaction($cert, $player, $stock, $type, $quantity, $datetime)
+    {
+        $sql = sprintf("INSERT INTO transactions (DateTime, Player, Stock, Trans, Quantity, Certificate) VALUES ('%s', '%s', '%s', '%s', '%d', '%s')",
+                $datetime, $player, $stock, $type, $quantity, $cert);
+        $query = $this->db->query($sql);
     }
 }

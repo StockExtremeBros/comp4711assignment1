@@ -28,9 +28,6 @@ class PlayerStats extends Application{
         else
         {
             $this->load->library('table');
-            $this->load->model('players');
-            $this->load->model('transactions');
-            $this->load->model('stocks');
         
             $this->data['pagebody'] = 'player_stats';
         
@@ -48,6 +45,8 @@ class PlayerStats extends Application{
         
             $this->data['player'] = $current_player;
             
+            $this->data['equity'] = $this->get_player_equity($current_player);
+            
             //show current player's transactions
             $this->populate_recent_activity($current_player);
             
@@ -64,10 +63,10 @@ class PlayerStats extends Application{
     function fill_drop_down()
     {
         $allPlayers = $this->players->getPlayerNames();
-        $players = '';
+        $players = '<li>None</li>';
         foreach($allPlayers as $row)
         { 
-             $players .= '<li><a href="/profiles/'.$row->player.'">'.$row->player.'</a></li>';
+             $players .= '<li><a href="/profiles/'.$row->Player.'">'.$row->Player.'</a></li>';
         }
         $this->data['dropdownoptions'] = $players;
     }

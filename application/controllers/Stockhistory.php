@@ -31,13 +31,17 @@ class StockHistory extends Application {
                 //Grab the most recent $stock transaction here.
                 $stock = $this->getMostRecentTransaction();                
             }
-            
+            if($stock == null) // no transactions
+            {
+                // GRAB A RANDOM STOCK HERE
+            }            
             //force the stock to adhere to the naming convention of only the
             //first letter being an upper-case. 
             $stock = ucfirst(strtolower($stock));
 
             $this->data['pagebody'] =  'stockhistory';
             $this->data['stock'] = $stock;
+            $this->data['value'] = $this->stocks->getStockValueByName($stock);
             
             $this->populate_dropdown();
             $this->populate_trans($stock);
@@ -50,6 +54,8 @@ class StockHistory extends Application {
     public function getMostRecentTransaction()
     {
         $recent = $this->transactions->getRecentStockTransaction();
+        if ($recent == null)
+            return null;
         foreach($recent as $key=>$value)
         {
             $code = $value['Stock'];

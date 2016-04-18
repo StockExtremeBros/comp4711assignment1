@@ -57,3 +57,5 @@ $route['profiles'] = 'playerstats/index';
 $route['profiles/(:any)'] = 'playerstats/index/$1';
 $route['stockhistory'] = 'stockhistory/index';
 $route['stockhistory/(:any)'] = 'stockhistory/index/$1';
+$route['upload'] = 'upload/index';
+$route['gameplay'] = 'gameplay/index';
