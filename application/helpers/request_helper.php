@@ -15,6 +15,7 @@ if (! function_exists('buy_request'))
                       'stock' => $stock,
                       'quantity' => $quantity)
                 );
+        var_dump($result);
         return $result;
     }
 }
@@ -46,6 +47,7 @@ function process_buy_request($result)
 
 function get_token()
 {
+    //$website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
     $website = file_get_contents("http://bsx.jlparry.com/register?team=O03&name=stockextremebros&password=tuesday");
     $xml = simplexml_load_string($website);
 
@@ -65,8 +67,9 @@ function get_token()
 if (! function_exists('sell_request'))
 {
     function sell_request($token, $team, $player, $stock, $quantity, $certificate) {
-        $this->load->library('curl');
-        $result = $this->curl->simple_post('http://bsx.jlparry.com/sell',
+        $CI =& get_instance();
+        $CI->load->library('curl');
+        $result = $CI->curl->simple_post('http://bsx.jlparry.com/sell',
                 array('team' => $team,
                       'token' => $token,
                       'player' => $player,
@@ -103,14 +106,14 @@ function process_sell_request($result)
 if (! function_exists('register_request'))
 {
     function register_request($team, $name, $password) {
-        $this->load->library('curl');
-        $result = $this->curl->simple_post('http://bsx.jlparry.com/register',
+        $CI =& get_instance();
+        $CI->load->library('curl');
+        $result = $CI->curl->simple_post('http://bsx.jlparry.com/register',
                 array('team' => $team,
                       'name' => $name,
                       'password' => $password)
                 );
-        var_dump($result);
-        return $result;
+        return ($result);
     }
 }
 
@@ -170,7 +173,6 @@ function get_stocks()
         }
         $j++;
     }
-    
     $CI->stocks->insertNewStocks($stocks);
     return $stocks;
 }

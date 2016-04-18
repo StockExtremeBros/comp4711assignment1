@@ -92,4 +92,11 @@ class Players extends CI_Model{
         }
         return false;
     }
+    
+    function getPlayerCash($player)
+    {
+        $query = $this->db->query('SELECT Cash FROM players WHERE player = \'' . $player . '\'');
+        $cash = $query->result()[0]->Cash;
+        return $cash;
+    }
 }

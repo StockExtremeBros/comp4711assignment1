@@ -28,9 +28,13 @@ class GamePlay extends Application{
             $this->load->library('table');
             
             $status = $this->gamestatus->getGameState();
+            
+            if (($status === '3') || ($status === '2'))
+            {
+                $this->tokens->add_token("o03", "stockextremebros", "tuesday");
+                get_stocks();
+            }
 
-            get_stocks();
-        
             $this->data['pagebody'] = 'game_play';
         
             if($current_player != null)
@@ -49,6 +53,7 @@ class GamePlay extends Application{
             
             $this->data['status'] = $this->gamestatus->getCurrent();
             $this->data['equity'] = $this->get_player_equity($current_player);
+            $this->data['cash'] = $this->players->getPlayerCash($current_player);
             
             //$this->populate_recent_activity($current_player);
             $this->get_latest_movements(5);
@@ -124,14 +129,12 @@ class GamePlay extends Application{
         $status = $this->gamestatus->getGameState();
         if (strcmp($status,'3') === 0) //open
         {
-            $player = $_SESSION['current_user'];
             $this->load->helper('request');
+            $player = $_SESSION['current_user']; 
             $selected_stock = $this->input->post('stocks');
             $quantity = $this->input->post('buy-quantity');
-            //get token
-            $token = '88a4e5fbc44c80aa0490b96f070ffa18';
-            //get team
-            $team = 'o03';
+            $token = $this->tokens->get_token();
+            $team = $this->tokens->get_agent();
             $result = buy_request($token, $team, $player, $selected_stock, $quantity);
             $xml = simplexml_load_string($result);
             if (isset($xml->message))
@@ -142,21 +145,16 @@ class GamePlay extends Application{
             } else {
                 //things to save to DB
                 $token = $xml->token;
-                var_dump((string) $token);
                 $stock = $xml->stock;
-                var_dump((string)$stock);
                 $player = $xml->player;
-                var_dump((string)$player);
                 $amount = $xml->amount;
-                var_dump((string)$amount);
-                $dt = $xml->datetime; //do we need to save this?
-                var_dump((string)$dt);
-
+                $dt = $xml->datetime;
                 $this->transactions->saveTransaction($token, $player, $stock, 'buy', $amount, $dt);
+                redirect('/gameplay');
             }
         } else {
-            //redirect(base_url().'/gameplay');
-            echo "not open";
+            redirect('/gameplay');
+            //echo "not open";
         }       
     }
     
