@@ -142,3 +142,16 @@ CREATE TABLE IF NOT EXISTS `avatars` (
   FOREIGN KEY (`Player`)
     REFERENCES `players`(`Player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `Agent`  varchar(20)    NOT NULL,
+  `Key`    varchar(256)  NOT NULL,
+  PRIMARY KEY (`Agent`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

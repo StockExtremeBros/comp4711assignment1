@@ -27,7 +27,6 @@ class PlayerStats extends Application{
         }
         else
         {
-            var_dump($_SESSION);
             $this->load->library('table');
         
             $this->data['pagebody'] = 'player_stats';

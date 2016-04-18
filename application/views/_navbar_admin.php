@@ -7,6 +7,7 @@
       <li><a href="/">Home</a></li>
       <li><a href="/stockhistory">Stock History</a></li>
       <li><a href="/profiles">Profile</a></li>
+      <li><a href="/gameplay">Buy and Sell</a></li>
       <li><a href="/editusers">Edit Users</a></li>
     </ul>
     <form class="navbar-form navbar-right ajax-form" role="forms" action="../forms/logout" method="post">

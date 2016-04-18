@@ -39,6 +39,7 @@ class Stocks extends CI_Model{
         
         if($count != count($oldStocks) && count($newStocks > 0)) // New stocks, regenerate the table
         {
+            $this->db->empty_table('transactions');
             $this->db->empty_table('stocks');
             foreach($newStocks as $stock)
             {
@@ -55,6 +56,7 @@ class Stocks extends CI_Model{
                 );
                 $this->db->insert('stocks', $data);
             }
+            
         }
         else //Same game, update it
         {
@@ -77,7 +79,6 @@ class Stocks extends CI_Model{
             }
             
         }
-        
     }
     
     // Grab all of the information from the Stocks table
